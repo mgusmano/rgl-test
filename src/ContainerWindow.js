@@ -18,7 +18,7 @@ const ContainerWindow = (props) => {
             overflow:'auto'
           }} 
         >
-            <DynamicLayout layout={layouts}/>
+            <DynamicLayout level={2} layout={layouts}/>
         </div> 
     )
 }

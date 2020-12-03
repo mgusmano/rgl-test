@@ -234,6 +234,14 @@ export default class ResponsiveReactGridLayout extends React.Component<
   onWidthChange(prevProps: Props<*>) {
     console.log('onWidthChange')
     console.log(this.props.width)
+    console.log(this.props)
+    var type = 'width' + this.props.level
+    var payload = this.props.width
+    window.dispatchEvent(new CustomEvent('mjg',{detail:{type:type,payload:payload}}));
+
+
+
+
     const { breakpoints, cols, layouts, compactType } = this.props;
     const newBreakpoint =
       this.props.breakpoint ||

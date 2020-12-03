@@ -5,9 +5,8 @@ import React, { useState, useEffect } from "react";
 import ChildWindow from './ChildWindow'
 import ContainerWindow from './ContainerWindow'
 
-//import ReactGridLayout from './react-grid-layout';
 
-import { Responsive, WidthProvider } from 'react-grid-layout';
+import { Responsive, WidthProvider } from './react-grid-layout';
 //import WidthProvider from 'react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -47,6 +46,7 @@ const DynamicLayout = (props) => {
     <>      
       {layouts !== null &&
         <ResponsiveReactGridLayout
+        level={props.level}
           className="layout"
           rowHeight={30}
           cols={{ lg: 12, md: 6, sm: 6, xs: 6, xxs: 2 }}

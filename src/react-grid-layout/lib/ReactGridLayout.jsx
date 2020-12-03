@@ -141,7 +141,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
 
   constructor(props: Props, context: any): void {
     super(props, context);
-    console.log('mjg5')
+    console.log('mjg6')
     //console.log(this.props.layout)
     autoBindHandlers(this, [
       "onDragStart",

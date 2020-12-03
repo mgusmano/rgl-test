@@ -76,8 +76,8 @@ function WidthProvider
     function WidthProvider() {
       var _this;
 
-      console.log(this)
-      console.log(WidthProvider)
+      //console.log(this)
+      //console.log(WidthProvider)
       _classCallCheck(this, WidthProvider);
 
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {

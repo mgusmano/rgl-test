@@ -1,24 +1,43 @@
-// @flow
-import React, { useEffect } from "react";
-//import { hot } from 'react-hot-loader/root';
-//import _ from "lodash";
-//import _ from "lodash";
-//import Responsive from './react-grid-layout/build/ResponsiveReactGridLayout';
-//import Responsive from 'react-grid-layout';
-//import WidthProvider from 'react-grid-layout';
-//import {CompactType, Layout} from 'react-grid-layout';
+
+import React, { useEffect, useState, useCallback } from "react";
+import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
+import { useGlobalState } from './globalstate/GlobalStateProvider'
 import DynamicLayout from './DynamicLayout';
-//import ChildWindow from './ChildWindow'
-//const ResponsiveReactGridLayout = WidthProvider(Responsive);
-//import ResponsiveReactGridLayout from './react-grid-layout';
 
 const App = (props) => {
+  const [{toolkitTitle, width}, dispatch] = useGlobalState();
+  //const history = useHistory();
+  //const location = useLocation();
+
   //const [currentBreakpoint, SetCurrentBreakpoint] = useState(null)
   //const [compactType, SetCompactType] = useState(null)
   //const [mounted, SetMounted] = useState(false)
   //const [layouts, SetLayouts] = useState(null)
 
+  const [width1val, setWidth1Val] = useState(null)
+  const [width2val, setWidth2Val] = useState(null)
+  const onMessage = useCallback((e) => {
+    if (!e.detail) {return}
+    switch (e.detail.type) {
+      case 'width1':
+        console.log('got it')
+        setWidth1Val(e.detail.payload)
+        break;
+      case 'width2':
+        console.log('got it')
+        setWidth2Val(e.detail.payload)
+        break;
+      default:
+        break;
+    }
+  }, [])
+
+
   useEffect(() => {
+    window.addEventListener('mjg', onMessage);
+    return function cleanup() {
+      window.removeEventListener('mjg', onMessage);
+    };
 
   }, []);
 
@@ -66,7 +85,7 @@ const App = (props) => {
       <div style={{flex: 1,display:'flex',flexDirection:'column',border:'0px solid green',xwidth:'100%',xheight:'100%',margin:'0'}}>
 
         <div style={{height:'50px',background:'rgb(230, 230, 230)',display:'flex',flexDirection:'row'}}>
-          titlebar
+          titlebar {toolkitTitle} {width1val} {width2val}
           {/* <div>
             Current Breakpoint: {currentBreakpoint} (
             {props.cols[currentBreakpoint]} columns)}
@@ -90,7 +109,7 @@ const App = (props) => {
           <div style={{flex:'1',border:'0px solid red'}}>
           {props.layouts !== null &&
          
-           <DynamicLayout layout={props.layout}/>
+           <DynamicLayout level={1} layout={props.layout}/>
 
             // <ResponsiveReactGridLayout
             //   // {...this.props}

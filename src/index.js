@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { GlobalStateProvider } from './globalstate/GlobalStateProvider';
 //import "style-loader!css-loader!./styles/styles.css";
 //import "style-loader!css-loader!./styles/example-styles.css";
 import "./styles/styles.css";
@@ -8,27 +9,27 @@ import App from './App';
 
 var layout = {"lg":[
   {
-    "i":"0","x":0,"y":0,"w":4,"h":8,
+    "i":"0","x":0,"y":0,"w":4,"h":8,l:1,
     "widget":{"type":"child"},"absoluteLayout":false,
   },
   {
-    "i":"1","x":4,"y":0,"w":4,"h":8,
+    "i":"1","x":4,"y":0,"w":4,"h":8,l:1,
     "widget":{"type":"child"},"absoluteLayout":false,
   },
   {
-    "i":"2","x":8,"y":0,"w":4,"h":8,
+    "i":"2","x":8,"y":0,"w":4,"h":8,l:1,
     "widget":{"type":"container"},"absoluteLayout":false,
     children: {lg: [
       {
-        "i":"0","x":0,"y":0,"w":2,"h":7,
+        "i":"0","x":0,"y":0,"w":2,"h":7,l:2,
         "widget":{"type":"child"},"absoluteLayout":false
       },
       {
-        "i":"1","x":2,"y":0,"w":2,"h":7,
+        "i":"1","x":2,"y":0,"w":2,"h":7,l:2,
         "widget":{"type":"child"}, "absoluteLayout":false
       },
       {
-        "i":"2","x":4,"y":0,"w":2,"h":7,
+        "i":"2","x":4,"y":0,"w":2,"h":7,l:2,
         "widget":{"type":"child"}, "absoluteLayout":false
       },
     ]}
@@ -54,7 +55,21 @@ const gridProps = window.gridProps || {};
 gridProps.layout = layout
 console.log(JSON.stringify(gridProps.layout))
 
+const wrapper = document.getElementById("root");
+
 ReactDOM.render(
-    <App layout={gridProps.layout}/>,
-  document.getElementById('root')
-);
+  <GlobalStateProvider>
+
+<App layout={gridProps.layout}/>
+
+  </GlobalStateProvider>, 
+  wrapper
+) 
+
+
+
+
+// ReactDOM.render(
+//     <App layout={gridProps.layout}/>,
+//   document.getElementById('root')
+// );
