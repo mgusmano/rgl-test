@@ -32,7 +32,7 @@ const DynamicLayout = (props) => {
       return (
         <div key={i} className={l.static ? "static" : ""}>       
           {l.widget.type == 'child' 
-            ? ( <ChildWindow>{i}-{l.widget.type}-{l.mjg}</ChildWindow> )
+            ? ( <ChildWindow>{i}-{l.widget.type}</ChildWindow> )
             : ( <ContainerWindow layout={l.children}>{i}-{l.widget.type}</ContainerWindow> )
           }       
         </div>
@@ -51,6 +51,8 @@ const DynamicLayout = (props) => {
           rowHeight={30}
           cols={{ lg: 12, md: 6, sm: 6, xs: 6, xxs: 2 }}
           breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+          margin={[5, 5]}
+          resizeHandles={['s','se','e']}
 
           isBounded={true}
           layouts={layouts}

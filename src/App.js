@@ -66,23 +66,24 @@ const App = (props) => {
       <div style={{flex: 1,display:'flex',flexDirection:'column',border:'0px solid green',xwidth:'100%',xheight:'100%',margin:'0'}}>
 
         <div style={{height:'50px',background:'rgb(230, 230, 230)',display:'flex',flexDirection:'row'}}>
-          <div>
+          titlebar
+          {/* <div>
             Current Breakpoint: {currentBreakpoint} (
-            {/* {props.cols[currentBreakpoint]} columns) */}
+            {props.cols[currentBreakpoint]} columns)}
           </div>
           <div>
             Compaction type:{" "}
             {_.capitalize(compactType) || "No Compaction"}
           </div>
-          <button onClick={onNewLayout}>Generate New Layout2</button>
+          <button onClick={onNewLayout}>Generate New Layout</button>
           <button onClick={onCompactTypeChange}>
             Change Compaction Type
-          </button>
+          </button> */}
         </div>
 
         <div style={{flex:'1',display:'flex',flexDirection:'row'}}>
           <div style={{width:'200px',background:'black',color:'white',border:'0px solid red'}}>toolkit</div>
-          <div style={{flex:'1',border:'1px solid red'}}>
+          <div style={{flex:'1',border:'0px solid red'}}>
           {props.layouts !== null &&
          
            <DynamicLayout layout={props.layout}/>

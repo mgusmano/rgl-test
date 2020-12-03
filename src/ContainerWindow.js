@@ -14,7 +14,7 @@ const ContainerWindow = (props) => {
           style={{
             width:'100%',
             height:'100%',
-            border:'1px solid blue',
+            border:'0px solid blue',
             overflow:'auto'
           }} 
         >

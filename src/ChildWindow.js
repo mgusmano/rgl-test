@@ -13,7 +13,7 @@ const ChildWindow = (props) => {
           style={{
             width:'100%',
             height:'100%',
-            border:'1px solid green',
+            border:'0px solid green',
             overflow:'auto'
           }} 
         >
