@@ -72,7 +72,8 @@ export type Props = {|
   innerRef?: Ref<"div">
 |};
 
-export default {
+  
+var defaultObj = {
   //
   // Basic props
   //
@@ -209,3 +210,5 @@ export default {
   // Optional ref for getting a reference for the wrapping div.
   innerRef: PropTypes.any
 };
+
+export default defaultObj
