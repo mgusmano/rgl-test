@@ -7,7 +7,7 @@ require("@babel/register");
 // function (a, b) { return a.className === b.className && a.style === b.style && ... }
 // This avoids enumerating keys, avoids us keeping our own key list, and can be very easily optimized.
 
-//mjgconst PropTypes = require("prop-types");
+const PropTypes = require("prop-types");
 const propTypes = require("./ReactGridLayoutPropTypes").default;
 const keys = Object.keys(propTypes);
 
@@ -18,31 +18,29 @@ keys.splice(keys.indexOf("children"), 1);
 // In most cases we want to do a simple equality comparison,
 // but we have some arrays and tuples and objects we want
 // to do a shallow comparison on.
-//mjg
-// function getEqualType(key) {
-//   if (
-//     [
-//       PropTypes.number,
-//       PropTypes.bool,
-//       PropTypes.string,
-//       PropTypes.func
-//     ].includes(propTypes[key])
-//   ) {
-//     return `(a.${key} === b.${key})`;
-//   }
-//   return `isEqualImpl(a.${key}, b.${key})`;
-// }
+function getEqualType(key) {
+  if (
+    [
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.string,
+      PropTypes.func
+    ].includes(propTypes[key])
+  ) {
+    return `(a.${key} === b.${key})`;
+  }
+  return `isEqualImpl(a.${key}, b.${key})`;
+}
 
 // Exports a function that compares a and b. `isEqualImpl` is a required
 // third prop, as we can't otherwise access it.
-//mjg
-// module.exports = () =>
-//   eval(`
-//   function fastRGLPropsEqual(a, b, isEqualImpl) {
-//     if (a === b) return true;
-//     return (
-//       ${keys.map(getEqualType).join(" && ")}
-//     );
-//   }
-//   fastRGLPropsEqual;
-// `);
+module.exports = () =>
+  eval(`
+  function fastRGLPropsEqual(a, b, isEqualImpl) {
+    if (a === b) return true;
+    return (
+      ${keys.map(getEqualType).join(" && ")}
+    );
+  }
+  fastRGLPropsEqual;
+`);
