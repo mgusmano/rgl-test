@@ -1,5 +1,5 @@
-import React, { useRef, useEffect  } from 'react'
-const Ext = window['Ext']
+import React, { useEffect  } from 'react'
+//const Ext = window['Ext']
 
 const ChildWindow = (props) => {
 

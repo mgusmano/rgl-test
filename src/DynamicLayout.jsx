@@ -24,14 +24,14 @@ const DynamicLayout = (props) => {
   useEffect(() => {
     SetLayouts(props.layout)
     SetCompactType('horizontal');
-  }, []);
+  }, [props.layout]);
 
   const generateDOM = () => {
     return layouts.lg.map((l, i) => {
     //return layout.map((l, i) => {
       return (
         <div key={i} className={l.static ? "static" : ""}>       
-          {l.widget.type == 'child' 
+          {l.widget.type === 'child' 
             ? ( <ChildWindow>{i}-{l.widget.type}</ChildWindow> )
             : ( <ContainerWindow layout={l.children}>{i}-{l.widget.type}</ContainerWindow> )
           }       

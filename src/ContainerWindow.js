@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import DynamicLayout from './DynamicLayout.jsx';
-const Ext = window['Ext']
+//const Ext = window['Ext']
 
 const ContainerWindow = (props) => {
   const [layouts, SetLayouts] = useState(null)
 
   useEffect(() => {
     SetLayouts(props.layout)
-  }, []);
+  }, [props.layout]);
   
     return (
         <div 
@@ -18,7 +18,7 @@ const ContainerWindow = (props) => {
             overflow:'auto'
           }} 
         >
-            <DynamicLayout layout={props.layout}/>
+            <DynamicLayout layout={layouts}/>
         </div> 
     )
 }

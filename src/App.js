@@ -1,60 +1,60 @@
 // @flow
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 //import { hot } from 'react-hot-loader/root';
-import _ from "lodash";
+//import _ from "lodash";
 //import _ from "lodash";
 //import Responsive from './react-grid-layout/build/ResponsiveReactGridLayout';
 //import Responsive from 'react-grid-layout';
 //import WidthProvider from 'react-grid-layout';
-import {CompactType, Layout} from 'react-grid-layout';
+//import {CompactType, Layout} from 'react-grid-layout';
 import DynamicLayout from './DynamicLayout';
-import ChildWindow from './ChildWindow'
+//import ChildWindow from './ChildWindow'
 //const ResponsiveReactGridLayout = WidthProvider(Responsive);
 //import ResponsiveReactGridLayout from './react-grid-layout';
 
 const App = (props) => {
-  const [currentBreakpoint, SetCurrentBreakpoint] = useState(null)
-  const [compactType, SetCompactType] = useState(null)
-  const [mounted, SetMounted] = useState(false)
-  const [layouts, SetLayouts] = useState(null)
+  //const [currentBreakpoint, SetCurrentBreakpoint] = useState(null)
+  //const [compactType, SetCompactType] = useState(null)
+  //const [mounted, SetMounted] = useState(false)
+  //const [layouts, SetLayouts] = useState(null)
 
   useEffect(() => {
 
   }, []);
 
 
-  const onBreakpointChange = (breakpoint) => {
-    SetCurrentBreakpoint(breakpoint)
-      // this.setState({
-      //   currentBreakpoint: breakpoint
-      // });
-  }
+  // const onBreakpointChange = (breakpoint) => {
+  //   SetCurrentBreakpoint(breakpoint)
+  //     // this.setState({
+  //     //   currentBreakpoint: breakpoint
+  //     // });
+  // }
 
-  const onCompactTypeChange = () => {
-    // const { compactType: oldCompactType } = this.state;
-    var oldCompactType = compactType;
+  // const onCompactTypeChange = () => {
+  //   // const { compactType: oldCompactType } = this.state;
+  //   var oldCompactType = compactType;
 
-    const newCompactType =
-      oldCompactType === "horizontal"
-        ? "vertical"
-        : oldCompactType === "vertical"
-        ? null
-        : "horizontal";
-    //tis.setState({ compactType });
-    SetCompactType(newCompactType)
-  }
+  //   const newCompactType =
+  //     oldCompactType === "horizontal"
+  //       ? "vertical"
+  //       : oldCompactType === "vertical"
+  //       ? null
+  //       : "horizontal";
+  //   //tis.setState({ compactType });
+  //   SetCompactType(newCompactType)
+  // }
 
 
-  const onLayoutChange = (layout, layouts) => {
-    //this.props.onLayoutChange(layout, layouts);
-  }
+  // const onLayoutChange = (layout, layouts) => {
+  //   //this.props.onLayoutChange(layout, layouts);
+  // }
 
-  const onNewLayout = () => {
-   // SetLayouts({ lg: generateLayout() })
-    // this.setState({
-    //   layouts: { lg: generateLayout() }
-    // });
-  }
+  // const onNewLayout = () => {
+  //  // SetLayouts({ lg: generateLayout() })
+  //   // this.setState({
+  //   //   layouts: { lg: generateLayout() }
+  //   // });
+  // }
 
   // const onDrop = (elemParams) => {
   //   alert(`Element parameters: ${JSON.stringify(elemParams)}`);

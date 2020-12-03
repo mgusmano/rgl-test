@@ -39,16 +39,16 @@ var layout = {"lg":[
   // },
 ]}
 
-var layout2 = [
-  {
-    "i":"0","x":0,"y":0,"w":4,"h":8,
-    "widget":{"type":"child"},"absoluteLayout":false,
-  },
-  {
-    "i":"1","x":4,"y":0,"w":4,"h":8,
-    "widget":{"type":"child"},"absoluteLayout":false,
-  },
-]
+// var layout2 = [
+//   {
+//     "i":"0","x":0,"y":0,"w":4,"h":8,
+//     "widget":{"type":"child"},"absoluteLayout":false,
+//   },
+//   {
+//     "i":"1","x":4,"y":0,"w":4,"h":8,
+//     "widget":{"type":"child"},"absoluteLayout":false,
+//   },
+// ]
 
 const gridProps = window.gridProps || {};
 gridProps.layout = layout
