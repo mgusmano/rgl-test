@@ -82,7 +82,11 @@ const App = (props) => {
         </div>
 
         <div style={{flex:'1',display:'flex',flexDirection:'row'}}>
-          <div style={{width:'200px',background:'black',color:'white',border:'0px solid red'}}>toolkit</div>
+          <div style={{width:'200px',background:'black',color:'white',border:'0px solid red'}}>
+            toolkit<br/><br/>         
+          use cases will be here<br/><br/>
+          1 - container component<br/><br/>
+          </div>
           <div style={{flex:'1',border:'0px solid red'}}>
           {props.layouts !== null &&
          
