@@ -477,7 +477,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     console.log('activeDrag',activeDrag)
     if (!activeDrag) return null;
 
-    if (activeDrag.placeholder == false) return null;
+    if (activeDrag.placeholder === false) return null;
 
     const {
       width,
@@ -671,7 +671,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       });
     } else if (this.state.droppingPosition) {
       const { left, top } = this.state.droppingPosition;
-      const shouldUpdatePosition = left != layerX || top != layerY;
+      const shouldUpdatePosition = left !== layerX || top !== layerY;
       if (shouldUpdatePosition) {
         this.setState({ droppingPosition });
       }

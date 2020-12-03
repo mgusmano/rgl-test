@@ -140,10 +140,10 @@ export default class ResponsiveReactGridLayout extends React.Component<
     onWidthChange: PropTypes.func
   };
 
-  constructor(props: Props, context: any): void {
-    super(props, context);
-    //console.log(props)
-  }
+  // constructor(props: Props, context: any): void {
+  //   super(props, context);
+  //   //console.log(props)
+  // }
 
   static defaultProps = {
     breakpoints: { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 },
@@ -210,7 +210,7 @@ export default class ResponsiveReactGridLayout extends React.Component<
   componentDidUpdate(prevProps: Props<*>) {
     // Allow parent to set width or breakpoint directly.
     if (
-      this.props.width != prevProps.width ||
+      this.props.width !== prevProps.width ||
       this.props.breakpoint !== prevProps.breakpoint ||
       !isEqual(this.props.breakpoints, prevProps.breakpoints) ||
       !isEqual(this.props.cols, prevProps.cols)

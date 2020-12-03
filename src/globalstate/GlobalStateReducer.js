@@ -235,7 +235,7 @@ export const GlobalStateReducer = (state, action) => {
       case "TILE_WIDGETS2":
         return produce(state, draft => {
           var a = document.getElementById('absolute')
-          var length = draft.dashboardData.dashboard.widgets.length
+          //var length = draft.dashboardData.dashboard.widgets.length
           var space = 15
           //debugger
           //var w = a.scrollWidth
@@ -281,7 +281,7 @@ export const GlobalStateReducer = (state, action) => {
       return produce(state, draft => {
         var index = draft.dashboardData.dashboard.widgets.map(item => item.id).indexOf(payload.id);
         if (index !== -1) {
-          if (draft.dashboardData.dashboard.widgets[index].properties.mode == 'chart') {
+          if (draft.dashboardData.dashboard.widgets[index].properties.mode === 'chart') {
             draft.dashboardData.dashboard.widgets[index].properties.mode = 'grid'
           }
           else {

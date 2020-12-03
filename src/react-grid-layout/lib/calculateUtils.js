@@ -77,7 +77,7 @@ export function calcGridItemPosition(
   }
   // Otherwise, calculate from grid units.
   else {
-    if (positionParams.absoluteLayout == true) {
+    if (positionParams.absoluteLayout === true) {
 
     }
     else {
@@ -108,7 +108,7 @@ export function calcXY(
   const { margin, cols, rowHeight, maxRows } = positionParams;
   const colWidth = calcGridColWidth(positionParams);
 
-  if (positionParams.absoluteLayout == true) {
+  if (positionParams.absoluteLayout === true) {
     return { left, top }
   }
 

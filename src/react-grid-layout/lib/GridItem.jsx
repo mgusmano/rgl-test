@@ -612,7 +612,7 @@ export default class GridItem extends React.Component<Props, State> {
 
     console.log(this.props)
     var absoluteStyle = {}
-    if (this.props.absoluteLayout == true) {
+    if (this.props.absoluteLayout === true) {
       // absoluteStyle.zIndex = '300',
       // absoluteStyle.border = '3px solid red'
     }

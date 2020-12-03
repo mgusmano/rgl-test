@@ -1,11 +1,11 @@
-
+/*eslint eqeqeq: "off"*/
 import React, { useEffect, useState, useCallback } from "react";
-import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
+//import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { useGlobalState } from './globalstate/GlobalStateProvider'
 import DynamicLayout from './DynamicLayout';
 
 const App = (props) => {
-  const [{toolkitTitle, width}, dispatch] = useGlobalState();
+  const [{toolkitTitle}] = useGlobalState();
   //const history = useHistory();
   //const location = useLocation();
 
@@ -39,7 +39,7 @@ const App = (props) => {
       window.removeEventListener('mjg', onMessage);
     };
 
-  }, []);
+  }, [onMessage]);
 
 
   // const onBreakpointChange = (breakpoint) => {
