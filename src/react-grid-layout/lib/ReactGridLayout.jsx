@@ -80,6 +80,9 @@ export default class ReactGridLayout extends React.Component<Props, State> {
   static propTypes = ReactGridLayoutPropTypes;
 
   static defaultProps = {
+    //mjg
+    absoluteLayout:false,
+    //mjg
     autoSize: true,
     cols: 12,
     className: "",
@@ -137,6 +140,9 @@ export default class ReactGridLayout extends React.Component<Props, State> {
 
   constructor(props: Props, context: any): void {
     super(props, context);
+    //mjg
+    console.log('ReactGridLayout')
+    //mjg
     autoBindHandlers(this, [
       "onDragStart",
       "onDrag",
@@ -279,7 +285,10 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       h: l.h,
       x: l.x,
       y: l.y,
-      placeholder: true,
+      //mjg
+      placeholder: !l.absoluteLayout,
+      //placeholder: true,
+      //mjg
       i: i
     };
 
@@ -452,6 +461,9 @@ export default class ReactGridLayout extends React.Component<Props, State> {
   placeholder(): ?ReactElement<any> {
     const { activeDrag } = this.state;
     if (!activeDrag) return null;
+    //mjg
+    if (activeDrag.placeholder == false) return null;
+    //mjg
     const {
       width,
       cols,
@@ -536,8 +548,10 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     // isBounded set on child if set on parent, and child is not explicitly false
     const bounded = draggable && isBounded && l.isBounded !== false;
 
+    //mjg 3 lines below
     return (
       <GridItem
+        absoluteLayout={l.absoluteLayout}
         containerWidth={width}
         cols={cols}
         margin={margin}

@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { GlobalStateProvider } from './globalstate/GlobalStateProvider';
-//import "style-loader!css-loader!./styles/styles.css";
-//import "style-loader!css-loader!./styles/example-styles.css";
 import "./styles/styles.css";
 import "./styles/example-styles.css";
 import App from './App';
@@ -51,25 +49,9 @@ var layout = {"lg":[
 //   },
 // ]
 
-const gridProps = window.gridProps || {};
-gridProps.layout = layout
-console.log(JSON.stringify(gridProps.layout))
-
-const wrapper = document.getElementById("root");
-
 ReactDOM.render(
   <GlobalStateProvider>
-
-<App layout={gridProps.layout}/>
-
+    <App layout={layout}/>
   </GlobalStateProvider>, 
-  wrapper
+  document.getElementById("root")
 ) 
-
-
-
-
-// ReactDOM.render(
-//     <App layout={gridProps.layout}/>,
-//   document.getElementById('root')
-// );

@@ -46,6 +46,9 @@ type State = {
 };
 
 type Props = {
+  //mjg
+  absoluteLayout: boolean,
+  //mjg
   children: ReactElement<any>,
   cols: number,
   containerWidth: number,
@@ -275,7 +278,11 @@ export default class GridItem extends React.Component<Props, State> {
   }
 
   getPositionParams(props: Props = this.props): PositionParams {
+    //console.log(props.absoluteLayout)
     return {
+      //mjg
+      absoluteLayout: props.absoluteLayout,
+      //mjg
       cols: props.cols,
       containerPadding: props.containerPadding,
       containerWidth: props.containerWidth,
@@ -606,6 +613,14 @@ export default class GridItem extends React.Component<Props, State> {
       useCSSTransforms
     } = this.props;
 
+    //mjg
+    var absoluteStyle = []
+    if (this.props.absoluteLayout == true) {
+      absoluteStyle.zIndex = '300',
+      absoluteStyle.border = '3px solid red'
+    }
+    //mjg
+
     const pos = calcGridItemPosition(
       this.getPositionParams(),
       x,
@@ -633,6 +648,9 @@ export default class GridItem extends React.Component<Props, State> {
       ),
       // We can set the width and height on the child, but unfortunately we can't set the position.
       style: {
+        //mjg
+        ...absoluteStyle,
+        //mjg
         ...this.props.style,
         ...child.props.style,
         ...this.createStyle(pos)

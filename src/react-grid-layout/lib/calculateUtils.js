@@ -1,7 +1,9 @@
 // @flow
 import type { Position } from "./utils";
-
 export type PositionParams = {
+  //mjg
+  absoluteLayout: boolean,
+  //mjg
   margin: [number, number],
   containerPadding: [number, number],
   containerWidth: number,
@@ -74,9 +76,23 @@ export function calcGridItemPosition(
   }
   // Otherwise, calculate from grid units.
   else {
-    out.top = Math.round((rowHeight + margin[1]) * y + containerPadding[1]);
-    out.left = Math.round((colWidth + margin[0]) * x + containerPadding[0]);
+    //mjg
+    if (positionParams.absoluteLayout == true) {
+      console.log('positionParams.absoluteLayout')
+      console.log(out.top,out.left)
+      // if (out.top == undefined) {
+      //   out.top=300
+      //   out.left=300
+      // }
+    }
+   else {
+    //mjg
+      out.top = Math.round((rowHeight + margin[1]) * y + containerPadding[1]);
+      out.left = Math.round((colWidth + margin[0]) * x + containerPadding[0]);
+    }
+  //mjg
   }
+  //mjg
 
   return out;
 }
@@ -99,6 +115,13 @@ export function calcXY(
 ): { x: number, y: number } {
   const { margin, cols, rowHeight, maxRows } = positionParams;
   const colWidth = calcGridColWidth(positionParams);
+
+  //mjg
+  if (positionParams.absoluteLayout == true) {
+    console.log('positionParams.absoluteLayout')
+    return { left, top }
+  }
+  //mjg
 
   // left = colWidth * x + margin * (x + 1)
   // l = cx + m(x+1)

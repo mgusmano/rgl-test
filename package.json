@@ -16,10 +16,10 @@
     "@babel/register": "^7.11.5"
   },
   "scripts": {
-    "start2": "react-app-rewired start",
+    "start": "react-app-rewired start",
     "build2": "react-app-rewired build",
     "test2": "react-app-rewired test",
-    "start": "react-scripts start",
+    "startorig": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

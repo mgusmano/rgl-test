@@ -6,6 +6,9 @@ import type {
   Element as ReactElement
 } from "react";
 export type LayoutItem = {
+  //mjg
+  absoluteLayout: boolean,
+  //mjg
   w: number,
   h: number,
   x: number,
@@ -102,6 +105,9 @@ export function cloneLayout(layout: Layout): Layout {
 // Fast path to cloning, since this is monomorphic
 export function cloneLayoutItem(layoutItem: LayoutItem): LayoutItem {
   return {
+    //mjg
+    absoluteLayout: layoutItem.absoluteLayout,
+    //mjg
     w: layoutItem.w,
     h: layoutItem.h,
     x: layoutItem.x,
