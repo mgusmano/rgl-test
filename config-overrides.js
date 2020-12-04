@@ -1,11 +1,12 @@
-const { useBabelRc, override, addBabelPlugins, addBabelPresets } = require('customize-cra')
+const { useBabelRc, override, addBabelPlugins, addBabelPresets, useEslintRc } = require('customize-cra')
 // @flow
 
 //const es6Compat = process.env.BABEL_ES_COMPAT === "6" || process.env.NODE_ENV === "test";
 
 module.exports = override(
 
-    useBabelRc()
+    useBabelRc(),
+    useEslintRc()
 
 //     addBabelPresets(
 //         "@babel/preset-env",

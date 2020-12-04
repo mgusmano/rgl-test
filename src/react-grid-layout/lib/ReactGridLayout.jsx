@@ -15,7 +15,7 @@ import {
   getAllCollisions,
   compactType,
   noop,
-  //fastRGLPropsEqual
+  fastRGLPropsEqual
 } from "./utils";
 
 import { calcXY } from "./calculateUtils";
@@ -209,7 +209,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       // from SCU is if the user intentionally memoizes children. If they do, and they can
       // handle changes properly, performance will increase.
       this.props.children !== nextProps.children ||
-//mjg      !fastRGLPropsEqual(this.props, nextProps, isEqual) ||
+      !fastRGLPropsEqual(this.props, nextProps, isEqual) ||
       this.state.activeDrag !== nextState.activeDrag ||
       this.state.mounted !== nextState.mounted ||
       this.state.droppingPosition !== nextState.droppingPosition
