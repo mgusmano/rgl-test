@@ -141,9 +141,9 @@ hi
   return (
       <div style={{flex: 1,display:'flex',flexDirection:'column',border:'0px solid green',xwidth:'100%',xheight:'100%',margin:'0'}}>
 
-        <div style={{height:'70px',background:'rgb(230, 230, 230)',display:'flex',flexDirection:'row'}}>
+        <div style={{height:'50px',background:'rgb(230, 230, 230)',display:'flex',flexDirection:'row'}}>
           {/* titlebar {toolkitTitle} */}
-          {JSON.stringify(layouts)}
+          <div style={{fontSize:'24px',margin:'10px'}}>Dynamic Layout Use Case Examples</div>
 
           {/* <div>
             Current Breakpoint: {currentBreakpoint} (
@@ -160,19 +160,21 @@ hi
         </div>
 
         <div style={{flex:'1',display:'flex',flexDirection:'row'}}>
-          <div style={{width:'200px',background:'black',color:'white',border:'0px solid red'}}>
+          <div style={{width:'300px',background:'black',color:'white',border:'0px solid red'}}>
 
             <div style={{display:'flex',flexDirection:'column',margin:'10px'}}>
               toolkit<br/><br/>  
               <div>Dashboard Width:{width1val} </div>
               <div>Container Width: {width2val}</div>
-              <br/>  
-              <div>use cases will be here</div>  
+
               <br/>  
               <button onClick={() => onClick('Container')}>Container Component</button>
               <button onClick={() => onClick('Absolute')}>Absolute Widget</button>
               <button onClick={() => onClick('Single')}>Single</button>
               <button onClick={() => onClick('Clear')}>Clear</button>
+              <div style={{overflow:'auto',height:'500px',marginTop:'10px'}}>
+              <pre>{JSON.stringify(layouts,null,2)}</pre>
+              </div>
              
             </div>
           </div>
