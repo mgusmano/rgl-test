@@ -12,7 +12,7 @@ const App = (props) => {
   //const [currentBreakpoint, SetCurrentBreakpoint] = useState(null)
   //const [compactType, SetCompactType] = useState(null)
   //const [mounted, SetMounted] = useState(false)
-  //const [layouts, SetLayouts] = useState(null)
+  const [layout, SetLayout] = useState(null)
 
   const [width1val, setWidth1Val] = useState(null)
   const [width2val, setWidth2Val] = useState(null)
@@ -34,6 +34,11 @@ const App = (props) => {
 
 
   useEffect(() => {
+    SetLayout(props.layout)
+
+
+
+
     window.addEventListener('mjg', onMessage);
     return function cleanup() {
       window.removeEventListener('mjg', onMessage);
@@ -68,12 +73,55 @@ const App = (props) => {
   //   //this.props.onLayoutChange(layout, layouts);
   // }
 
-  // const onNewLayout = () => {
-  //  // SetLayouts({ lg: generateLayout() })
-  //   // this.setState({
-  //   //   layouts: { lg: generateLayout() }
-  //   // });
-  // }
+  const onContainerComponent = () => {
+    var layout = {"lg":[
+      {
+        "i":"0","x":0,"y":0,"w":4,"h":8,l:1,
+        "widget":{"type":"child"},"absoluteLayout":false,
+      },
+      {
+        "i":"1","x":4,"y":0,"w":4,"h":8,l:1,
+        "widget":{"type":"child"},"absoluteLayout":false,
+      },
+      {
+        "i":"2","x":8,"y":0,"w":4,"h":8,l:1,
+        "widget":{"type":"container"},"absoluteLayout":false,
+        children: {lg: [
+          {
+            "i":"0","x":0,"y":0,"w":2,"h":7,l:2,
+            "widget":{"type":"child"},"absoluteLayout":false
+          },
+          {
+            "i":"1","x":2,"y":0,"w":2,"h":7,l:2,
+            "widget":{"type":"child"}, "absoluteLayout":false
+          },
+          {
+            "i":"2","x":4,"y":0,"w":2,"h":7,l:2,
+            "widget":{"type":"child"}, "absoluteLayout":false
+          },
+        ]}
+      },
+      // {
+      //   "i":"3","x":0,"y":0,"w":4,"h":6,
+      //   "widget":{"type":"child"},"absoluteLayout":true,
+      // },
+    ]}
+    SetLayout(layout)
+  }
+
+  const onAbsoluteWidget = () => {
+    var layout = {"lg":[
+      {
+        "i":"0","x":0,"y":0,"w":2,"h":2,l:1,
+        "widget":{"type":"child"},"absoluteLayout":true,
+      },
+      {
+        "i":"1","x":3,"y":0,"w":2,"h":8,l:1,
+        "widget":{"type":"child"},"absoluteLayout":false,
+      },
+    ]}
+    SetLayout(layout)
+  }
 
   // const onDrop = (elemParams) => {
   //   alert(`Element parameters: ${JSON.stringify(elemParams)}`);
@@ -85,7 +133,8 @@ const App = (props) => {
       <div style={{flex: 1,display:'flex',flexDirection:'column',border:'0px solid green',xwidth:'100%',xheight:'100%',margin:'0'}}>
 
         <div style={{height:'50px',background:'rgb(230, 230, 230)',display:'flex',flexDirection:'row'}}>
-          titlebar {toolkitTitle} {width1val} {width2val}
+          titlebar {toolkitTitle}
+
           {/* <div>
             Current Breakpoint: {currentBreakpoint} (
             {props.cols[currentBreakpoint]} columns)}
@@ -102,14 +151,23 @@ const App = (props) => {
 
         <div style={{flex:'1',display:'flex',flexDirection:'row'}}>
           <div style={{width:'200px',background:'black',color:'white',border:'0px solid red'}}>
-            toolkit<br/><br/>         
-          use cases will be here<br/><br/>
-          1 - container component<br/><br/>
+
+            <div style={{display:'flex',flexDirection:'column',margin:'10px'}}>
+              toolkit<br/><br/>  
+
+              <div>Dashboard Width:{width1val} </div>
+              <div>Container Width: {width2val}</div>
+              <br/>  
+              <div>use cases will be here</div>  
+              <br/>  
+              <button onClick={onContainerComponent}>Container Component</button>
+              <button onClick={onAbsoluteWidget}>Absolute Widget</button>
+            </div>
           </div>
           <div style={{flex:'1',border:'0px solid red'}}>
           {props.layouts !== null &&
          
-           <DynamicLayout level={1} layout={props.layout}/>
+           <DynamicLayout level={1} layout={layout}/>
 
             // <ResponsiveReactGridLayout
             //   // {...this.props}
