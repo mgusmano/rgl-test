@@ -113,9 +113,13 @@ export default {
   // layout is an array of object with the format:
   // {x: Number, y: Number, w: Number, h: Number, i: String}
   layout: function (props: Props) {
+    //console.log(props)
     var layout = props.layout;
     // I hope you're setting the data-grid property on the grid items
+    //console.log('layout',layout)
     if (layout === undefined) return;
+    //if (layout.length === 0) return;
+    //console.log('layout',layout)
     require("./utils").validateLayout(layout, "layout");
   },
 

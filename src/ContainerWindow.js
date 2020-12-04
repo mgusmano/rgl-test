@@ -6,10 +6,14 @@ const ContainerWindow = (props) => {
   const [layouts, SetLayouts] = useState(null)
 
   useEffect(() => {
-    SetLayouts(props.layout)
-  }, [props.layout]);
+    console.log(props.layouts)
+    SetLayouts(props.layouts)
+  }, [props.layouts]);
   
-    return (
+    return (   
+       <>   
+      {layouts !== null &&
+
         <div 
           style={{
             width:'100%',
@@ -18,8 +22,10 @@ const ContainerWindow = (props) => {
             overflow:'auto'
           }} 
         >
-            <DynamicLayout level={2} layout={layouts}/>
+            <DynamicLayout level={2} layouts={layouts}/>
         </div> 
+      }
+          </>   
     )
 }
 

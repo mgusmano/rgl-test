@@ -17,7 +17,7 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 //const Responsive2 = WidthProvider(Responsive);
 //import ResponsiveReactGridLayout from './react-grid-layout';
 
-const DynamicLayout = (props) => {
+const DynamicLayout2 = (props) => {
  // const [layouts, SetLayouts] = useState(null)
   const [compacttype, SetCompactType] = useState(null)
 
@@ -25,11 +25,10 @@ const DynamicLayout = (props) => {
     console.log('useEffect',props.layouts)
     //SetLayouts(props.layouts)
 
-    //SetCompactType('horizontal');
-    SetCompactType('vertical');
+    SetCompactType('horizontal');
   }, [props.layout]);
 
-  const generateDOM2 = (layouts) => {
+  const generateDOM = (layouts) => {
     return layouts.lg.map((l, i) => {
     //return layout.map((l, i) => {
       return (
@@ -43,27 +42,14 @@ const DynamicLayout = (props) => {
     });
   }
 
-  const generateDOM = () => {
-    //console.log('generateDOM')
-    //console.log(props.layouts)
-    return props.layouts.lg.map((l, i) => {
-    //return layout.map((l, i) => {
-      return (
-        <div key={i} data-grid={l}>       
-          <SimpleWrapper key={i} layoutitem={l} item={i}> </SimpleWrapper>
-        </div>
-      )
-    });
-  }
-
-  const generateDOM5 = () => {
+  const generateDOM2 = () => {
     console.log('generateDOM')
     console.log(props.layouts)
     return props.layouts.lg.map((l, i) => {
     //return layout.map((l, i) => {
       return (
         <div key={i} data-grid={l}>       
-hi
+          <SimpleWrapper key={i} layoutitem={l} item={i}> </SimpleWrapper>
         </div>
       )
     });
@@ -86,19 +72,19 @@ hi
  // breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
 
   return (
-    <div style={{display:'flex',flex:'1',overflow:'none'}}>    
+    <>      
       {props.layouts !== null &&
         <ResponsiveReactGridLayout
           level={props.level}
           className="layout"
           rowHeight={30}
-          cols={{ lg: 12, md: 4, sm: 6, xs: 6, xxs: 1 }}
-          breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+          cols={{ lg: 12, md: 6, sm: 6, xs: 6, xxs: 2 }}
+          breakpoints={{lg: 1200, md: 996, sm: 768, xs: 380, xxs: 0}}
           margin={[5, 5]}
           resizeHandles={['s','se','e']}
           //layout={props.layouts}
 
-          isBounded={false}
+          isBounded={true}
           //layouts={layouts}
           // WidthProvider option
           measureBeforeMount={false}
@@ -111,8 +97,8 @@ hi
           {generateDOM(props.layouts)}
         </ResponsiveReactGridLayout>
       }    
-    </div>
+    </>
   )
 }
 //export default hot(DynamicLayout)
-export default DynamicLayout
+export default DynamicLayout2

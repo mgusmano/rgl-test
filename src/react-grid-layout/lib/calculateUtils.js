@@ -78,8 +78,8 @@ export function calcGridItemPosition(
   else {
     //mjg
     if (positionParams.absoluteLayout == true) {
-      console.log('positionParams.absoluteLayout')
-      console.log(out.top,out.left)
+      //console.log('positionParams.absoluteLayout')
+      //console.log(out.top,out.left)
       // if (out.top == undefined) {
       //   out.top=300
       //   out.left=300

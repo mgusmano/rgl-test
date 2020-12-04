@@ -141,7 +141,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
   constructor(props: Props, context: any): void {
     super(props, context);
     //mjg
-    console.log('ReactGridLayout')
+    //console.log('ReactGridLayout')
     //mjg
     autoBindHandlers(this, [
       "onDragStart",
@@ -559,7 +559,9 @@ export default class ReactGridLayout extends React.Component<Props, State> {
         maxRows={maxRows}
         rowHeight={rowHeight}
         cancel={draggableCancel}
-        handle={draggableHandle}
+        //mjg
+        handle={l.draggableHandle}
+        //mjg
         onDragStop={this.onDragStop}
         onDragStart={this.onDragStart}
         onDrag={this.onDrag}

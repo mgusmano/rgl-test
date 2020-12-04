@@ -654,7 +654,9 @@ export function synchronizeLayoutWithChildren(
   const layout: LayoutItem[] = [];
   React.Children.forEach(children, (child: ReactElement<any>, i: number) => {
     // Don't overwrite if it already exists.
+    //console.log('initialLayout',initialLayout)
     const exists = getLayoutItem(initialLayout, String(child.key));
+    //console.log('exists',exists)
     if (exists) {
       layout[i] = cloneLayoutItem(exists);
     } else {
@@ -666,12 +668,15 @@ export function synchronizeLayoutWithChildren(
       }
       const g = child.props["data-grid"] || child.props._grid;
 
+      //console.log('g',g)
+
       // Hey, this item has a data-grid property, use it.
       if (g) {
         if (!isProduction) {
           validateLayout([g], "ReactGridLayout.children");
         }
         layout[i] = cloneLayoutItem({ ...g, i: child.key });
+        //console.log(layout[i])
       } else {
         // Nothing provided: ensure this is added to the bottom
         layout[i] = cloneLayoutItem({

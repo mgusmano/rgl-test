@@ -207,6 +207,7 @@ export default class ResponsiveReactGridLayout extends React.Component<
       !isEqual(this.props.breakpoints, prevProps.breakpoints) ||
       !isEqual(this.props.cols, prevProps.cols)
     ) {
+      console.log('here')
       this.onWidthChange(prevProps);
     }
   }
@@ -227,7 +228,14 @@ export default class ResponsiveReactGridLayout extends React.Component<
     //mjg
     var type = 'width' + this.props.level
     var payload = this.props.width
+    console.log('onWidthChange')
     window.dispatchEvent(new CustomEvent('mjg',{detail:{type:type,payload:payload}}));
+
+
+
+
+
+    
     //mjg
     const { breakpoints, cols, layouts, compactType } = this.props;
     const newBreakpoint =

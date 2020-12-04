@@ -5,7 +5,7 @@ import "./styles/styles.css";
 import "./styles/example-styles.css";
 import App from './App';
 
-var layout = {"lg":[
+var layouts = {"lg":[
   {
     "i":"0","x":0,"y":0,"w":4,"h":8,l:1,
     "widget":{"type":"child"},"absoluteLayout":false,
@@ -51,7 +51,7 @@ var layout = {"lg":[
 
 ReactDOM.render(
   <GlobalStateProvider>
-    <App layout={layout}/>
+    <App layouts={null}/>
   </GlobalStateProvider>, 
   document.getElementById("root")
 ) 

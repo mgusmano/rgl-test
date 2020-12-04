@@ -4,6 +4,16 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useGlobalState } from './globalstate/GlobalStateProvider'
 import DynamicLayout from './DynamicLayout';
 
+import Absolute from './layouts/Absolute'
+import Container from './layouts/Container'
+import Single from './layouts/Single'
+
+import Simple from './wrapper/Simple'
+
+//import { Responsive, WidthProvider } from './react-grid-layout';
+//import WidthProvider from 'react-grid-layout';
+//const ResponsiveReactGridLayout = WidthProvider(Responsive);
+
 const App = (props) => {
   const [{toolkitTitle}] = useGlobalState();
   //const history = useHistory();
@@ -12,7 +22,6 @@ const App = (props) => {
   //const [currentBreakpoint, SetCurrentBreakpoint] = useState(null)
   //const [compactType, SetCompactType] = useState(null)
   //const [mounted, SetMounted] = useState(false)
-  const [layout, SetLayout] = useState(null)
 
   const [width1val, setWidth1Val] = useState(null)
   const [width2val, setWidth2Val] = useState(null)
@@ -20,11 +29,9 @@ const App = (props) => {
     if (!e.detail) {return}
     switch (e.detail.type) {
       case 'width1':
-        console.log('got it')
         setWidth1Val(e.detail.payload)
         break;
       case 'width2':
-        console.log('got it')
         setWidth2Val(e.detail.payload)
         break;
       default:
@@ -32,18 +39,15 @@ const App = (props) => {
     }
   }, [])
 
-
+  const [layouts, SetLayouts] = useState(null)
   useEffect(() => {
-    SetLayout(props.layout)
-
-
-
+    console.log(props.layouts)
+    SetLayouts(props.layouts)
 
     window.addEventListener('mjg', onMessage);
     return function cleanup() {
       window.removeEventListener('mjg', onMessage);
     };
-
   }, [onMessage]);
 
 
@@ -68,72 +72,78 @@ const App = (props) => {
   //   SetCompactType(newCompactType)
   // }
 
-
   // const onLayoutChange = (layout, layouts) => {
   //   //this.props.onLayoutChange(layout, layouts);
   // }
 
-  const onContainerComponent = () => {
-    var layout = {"lg":[
-      {
-        "i":"0","x":0,"y":0,"w":4,"h":8,l:1,
-        "widget":{"type":"child"},"absoluteLayout":false,
-      },
-      {
-        "i":"1","x":4,"y":0,"w":4,"h":8,l:1,
-        "widget":{"type":"child"},"absoluteLayout":false,
-      },
-      {
-        "i":"2","x":8,"y":0,"w":4,"h":8,l:1,
-        "widget":{"type":"container"},"absoluteLayout":false,
-        children: {lg: [
-          {
-            "i":"0","x":0,"y":0,"w":2,"h":7,l:2,
-            "widget":{"type":"child"},"absoluteLayout":false
-          },
-          {
-            "i":"1","x":2,"y":0,"w":2,"h":7,l:2,
-            "widget":{"type":"child"}, "absoluteLayout":false
-          },
-          {
-            "i":"2","x":4,"y":0,"w":2,"h":7,l:2,
-            "widget":{"type":"child"}, "absoluteLayout":false
-          },
-        ]}
-      },
-      // {
-      //   "i":"3","x":0,"y":0,"w":4,"h":6,
-      //   "widget":{"type":"child"},"absoluteLayout":true,
-      // },
-    ]}
-    SetLayout(layout)
+  const onClick = (who) => {
+    SetLayouts(null)
+
+    requestAnimationFrame(function() {
+      switch (who) {
+        case 'Absolute':
+          SetLayouts(Absolute())
+          break
+        case 'Container':
+          SetLayouts(Container())
+          break
+          case 'Single':
+            SetLayouts(Single())
+            break
+          case 'Clear':
+            SetLayouts(null)
+            break
+        default:
+          console.log('other')
+      }
+
+    })
+
   }
 
-  const onAbsoluteWidget = () => {
-    var layout = {"lg":[
-      {
-        "i":"0","x":0,"y":0,"w":2,"h":2,l:1,
-        "widget":{"type":"child"},"absoluteLayout":true,
-      },
-      {
-        "i":"1","x":3,"y":0,"w":2,"h":8,l:1,
-        "widget":{"type":"child"},"absoluteLayout":false,
-      },
-    ]}
-    SetLayout(layout)
+  //
+
+  const generateDOM = () => {
+    console.log('generateDOM')
+    console.log(layouts)
+    return layouts.lg.map((l, i) => {
+      return (
+        <div 
+          key={i}
+          data-grid={layouts.lg[i]}
+
+          style={{
+            background: 'rgb(5,55,75)',
+            color: 'white',
+            border: '1px solid lightgray',
+            height:'100%',
+            borderRadius: '5px 5px 5px 5px',
+            fontSize: '18px',
+            padding: '0',
+            xheight: '20px',
+            display:'flex',
+            justifyContent:'space-between',
+        }}
+
+
+
+        >       
+hi
+        </div>
+      )
+    });
   }
 
   // const onDrop = (elemParams) => {
   //   alert(`Element parameters: ${JSON.stringify(elemParams)}`);
   // };
 
-
   return (
-
       <div style={{flex: 1,display:'flex',flexDirection:'column',border:'0px solid green',xwidth:'100%',xheight:'100%',margin:'0'}}>
 
-        <div style={{height:'50px',background:'rgb(230, 230, 230)',display:'flex',flexDirection:'row'}}>
-          titlebar {toolkitTitle}
+        <div style={{height:'70px',background:'rgb(230, 230, 230)',display:'flex',flexDirection:'row'}}>
+          {/* titlebar {toolkitTitle} */}
+          {JSON.stringify(layouts)}
 
           {/* <div>
             Current Breakpoint: {currentBreakpoint} (
@@ -154,32 +164,33 @@ const App = (props) => {
 
             <div style={{display:'flex',flexDirection:'column',margin:'10px'}}>
               toolkit<br/><br/>  
-
               <div>Dashboard Width:{width1val} </div>
               <div>Container Width: {width2val}</div>
               <br/>  
               <div>use cases will be here</div>  
               <br/>  
-              <button onClick={onContainerComponent}>Container Component</button>
-              <button onClick={onAbsoluteWidget}>Absolute Widget</button>
+              <button onClick={() => onClick('Container')}>Container Component</button>
+              <button onClick={() => onClick('Absolute')}>Absolute Widget</button>
+              <button onClick={() => onClick('Single')}>Single</button>
+              <button onClick={() => onClick('Clear')}>Clear</button>
+             
             </div>
           </div>
-          <div style={{flex:'1',border:'0px solid red'}}>
-          {props.layouts !== null &&
-         
-           <DynamicLayout level={1} layout={layout}/>
+          <div style={{flex:'1',display:'flex',border:'0px solid green'}}>
+          {layouts !== null &&    
+           <DynamicLayout level={1} layouts={layouts}/>
 
             // <ResponsiveReactGridLayout
             //   // {...this.props}
             //   className="layout"
             //   rowHeight={30}
-            //   onLayoutChange={function() {}}
+            //   //onLayoutChange={function() {}}
             //   cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
             //   isBounded={true}
             //   layouts={layouts}
-            //   onBreakpointChange={onBreakpointChange}
-            //   onLayoutChange={onLayoutChange}
-            //   onDrop={onDrop}
+            //   //onBreakpointChange={onBreakpointChange}
+            //   //onLayoutChange={onLayoutChange}
+            //   //onDrop={onDrop}
             //   // WidthProvider option
             //   measureBeforeMount={false}
             //   // I like to have it animate on mount. If you don't, delete `useCSSTransforms` (it's default `true`)
