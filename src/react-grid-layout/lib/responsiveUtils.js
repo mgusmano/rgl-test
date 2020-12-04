@@ -78,11 +78,6 @@ export function findOrGenerateResponsiveLayout(
   compactType: CompactType
 ): Layout {
   // If it already exists, just return it.
-
-  //console.log('rr',layouts[breakpoint])
-
-
-
   if (layouts[breakpoint]) return cloneLayout(layouts[breakpoint]);
   // Find or generate the next layout
   let layout = layouts[lastBreakpoint];
@@ -97,7 +92,6 @@ export function findOrGenerateResponsiveLayout(
       break;
     }
   }
-  console.log('processed',layout)
   layout = cloneLayout(layout || []); // clone layout so we don't modify existing items
   return compact(correctBounds(layout, { cols: cols }), compactType, cols);
 }

@@ -46,7 +46,6 @@ type State = {
 };
 
 type Props = {
-  absoluteLayout: boolean,
   children: ReactElement<any>,
   cols: number,
   containerWidth: number,
@@ -96,7 +95,6 @@ type Props = {
  */
 export default class GridItem extends React.Component<Props, State> {
   static propTypes = {
-    //absoluteLayout: PropTypes.boolean.isRequired,
     // Children must be only a single element
     children: PropTypes.element,
 
@@ -234,7 +232,6 @@ export default class GridItem extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    console.log('componentDidUpdate')
     this.moveDroppingItem(prevProps);
   }
 
@@ -279,7 +276,6 @@ export default class GridItem extends React.Component<Props, State> {
 
   getPositionParams(props: Props = this.props): PositionParams {
     return {
-      absoluteLayout: props.absoluteLayout,
       cols: props.cols,
       containerPadding: props.containerPadding,
       containerWidth: props.containerWidth,
@@ -610,13 +606,6 @@ export default class GridItem extends React.Component<Props, State> {
       useCSSTransforms
     } = this.props;
 
-    console.log(this.props)
-    var absoluteStyle = {}
-    if (this.props.absoluteLayout === true) {
-      // absoluteStyle.zIndex = '300',
-      // absoluteStyle.border = '3px solid red'
-    }
-
     const pos = calcGridItemPosition(
       this.getPositionParams(),
       x,
@@ -644,7 +633,6 @@ export default class GridItem extends React.Component<Props, State> {
       ),
       // We can set the width and height on the child, but unfortunately we can't set the position.
       style: {
-        ...absoluteStyle,
         ...this.props.style,
         ...child.props.style,
         ...this.createStyle(pos)

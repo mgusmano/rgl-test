@@ -140,11 +140,6 @@ export default class ResponsiveReactGridLayout extends React.Component<
     onWidthChange: PropTypes.func
   };
 
-  // constructor(props: Props, context: any): void {
-  //   super(props, context);
-  //   //console.log(props)
-  // }
-
   static defaultProps = {
     breakpoints: { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 },
     cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
@@ -159,7 +154,6 @@ export default class ResponsiveReactGridLayout extends React.Component<
   state = this.generateInitialState();
 
   generateInitialState(): State {
-    console.log('generateInitialState')
     const { width, breakpoints, layouts, cols } = this.props;
     const breakpoint = getBreakpointFromWidth(breakpoints, width);
     const colNo = getColsFromBreakpoint(breakpoint, cols);
@@ -168,7 +162,6 @@ export default class ResponsiveReactGridLayout extends React.Component<
       this.props.verticalCompact === false ? null : this.props.compactType;
     // Get the initial layout. This can tricky; we try to generate one however possible if one doesn't exist
     // for this layout.
-    //console.log('a',layouts)
     const initialLayout = findOrGenerateResponsiveLayout(
       layouts,
       breakpoints,
@@ -178,7 +171,6 @@ export default class ResponsiveReactGridLayout extends React.Component<
       compactType
     );
 
-    //console.log('b',initialLayout)
     return {
       layout: initialLayout,
       breakpoint: breakpoint,
@@ -210,7 +202,7 @@ export default class ResponsiveReactGridLayout extends React.Component<
   componentDidUpdate(prevProps: Props<*>) {
     // Allow parent to set width or breakpoint directly.
     if (
-      this.props.width !== prevProps.width ||
+      this.props.width != prevProps.width ||
       this.props.breakpoint !== prevProps.breakpoint ||
       !isEqual(this.props.breakpoints, prevProps.breakpoints) ||
       !isEqual(this.props.cols, prevProps.cols)
@@ -232,16 +224,6 @@ export default class ResponsiveReactGridLayout extends React.Component<
    * Width changes are necessary to figure out the widget widths.
    */
   onWidthChange(prevProps: Props<*>) {
-    console.log('onWidthChange')
-    console.log(this.props.width)
-    console.log(this.props)
-    var type = 'width' + this.props.level
-    var payload = this.props.width
-    window.dispatchEvent(new CustomEvent('mjg',{detail:{type:type,payload:payload}}));
-
-
-
-
     const { breakpoints, cols, layouts, compactType } = this.props;
     const newBreakpoint =
       this.props.breakpoint ||
@@ -323,7 +305,6 @@ export default class ResponsiveReactGridLayout extends React.Component<
       ...other
     } = this.props;
     /* eslint-enable no-unused-vars */
-    //console.log('props',this.props)
 
     return (
       <ReactGridLayout

@@ -2,7 +2,6 @@
 import type { Position } from "./utils";
 
 export type PositionParams = {
-  absoluteLayout: boolean,
   margin: [number, number],
   containerPadding: [number, number],
   containerWidth: number,
@@ -57,8 +56,6 @@ export function calcGridItemPosition(
   const colWidth = calcGridColWidth(positionParams);
   const out = {};
 
-  //console.log(state)
-
   // If resizing, use the exact width and height as returned from resizing callbacks.
   if (state && state.resizing) {
     out.width = Math.round(state.resizing.width);
@@ -77,13 +74,8 @@ export function calcGridItemPosition(
   }
   // Otherwise, calculate from grid units.
   else {
-    if (positionParams.absoluteLayout === true) {
-
-    }
-    else {
     out.top = Math.round((rowHeight + margin[1]) * y + containerPadding[1]);
     out.left = Math.round((colWidth + margin[0]) * x + containerPadding[0]);
-  }
   }
 
   return out;
@@ -107,10 +99,6 @@ export function calcXY(
 ): { x: number, y: number } {
   const { margin, cols, rowHeight, maxRows } = positionParams;
   const colWidth = calcGridColWidth(positionParams);
-
-  if (positionParams.absoluteLayout === true) {
-    return { left, top }
-  }
 
   // left = colWidth * x + margin * (x + 1)
   // l = cx + m(x+1)

@@ -83,7 +83,6 @@ export default function WidthProvider<Config>(
     };
 
     render() {
-      console.log(this.props)
       const { measureBeforeMount, ...rest } = this.props;
       if (measureBeforeMount && !this.mounted) {
         return (

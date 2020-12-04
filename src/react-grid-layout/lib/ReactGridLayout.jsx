@@ -40,8 +40,6 @@ import type {
 
 import type { PositionParams } from "./calculateUtils";
 
-import type { Props } from "./ReactGridLayoutPropTypes";
-
 type State = {
   activeDrag: ?LayoutItem,
   layout: Layout,
@@ -57,7 +55,7 @@ type State = {
   propsLayout?: Layout
 };
 
-
+import type { Props } from "./ReactGridLayoutPropTypes";
 
 // End Types
 
@@ -78,12 +76,10 @@ export default class ReactGridLayout extends React.Component<Props, State> {
   // TODO publish internal ReactClass displayName transform
   static displayName = "ReactGridLayout";
 
-
   // Refactored to another module to make way for preval
   static propTypes = ReactGridLayoutPropTypes;
 
   static defaultProps = {
-    absoluteLayout:false,
     autoSize: true,
     cols: 12,
     className: "",
@@ -141,8 +137,6 @@ export default class ReactGridLayout extends React.Component<Props, State> {
 
   constructor(props: Props, context: any): void {
     super(props, context);
-    console.log('mjg6')
-    //console.log(this.props.layout)
     autoBindHandlers(this, [
       "onDragStart",
       "onDrag",
@@ -279,27 +273,13 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     var l = getLayoutItem(layout, i);
     if (!l) return;
 
-    // // Create placeholder (display only)
-    // var placeholder = {
-    //   w: l.w,
-    //   h: l.h,
-    //   x: l.x,
-    //   y: l.y,
-    //   placeholder: true,
-    //   i: i
-    // };
-
-
-
-    console.log('in onDrag',l.absoluteLayout)
-
     // Create placeholder (display only)
     var placeholder = {
       w: l.w,
       h: l.h,
       x: l.x,
       y: l.y,
-      placeholder: !l.absoluteLayout,
+      placeholder: true,
       i: i
     };
 
@@ -341,9 +321,6 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     const l = getLayoutItem(layout, i);
     if (!l) return;
 
-    //console.log('move')
-    //console.log(preventCollision)
-    //console.log(this.props)
     // Move the element here
     const isUserAction = true;
     layout = moveElement(
@@ -474,11 +451,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
    */
   placeholder(): ?ReactElement<any> {
     const { activeDrag } = this.state;
-    console.log('activeDrag',activeDrag)
     if (!activeDrag) return null;
-
-    if (activeDrag.placeholder === false) return null;
-
     const {
       width,
       cols,
@@ -528,7 +501,6 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     if (!child || !child.key) return;
     const l = getLayoutItem(this.state.layout, String(child.key));
     if (!l) return null;
-    console.log('l',l)
     const {
       width,
       cols,
@@ -564,11 +536,8 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     // isBounded set on child if set on parent, and child is not explicitly false
     const bounded = draggable && isBounded && l.isBounded !== false;
 
-    //console.log(l)
-//console.log(absoluteLayout)
     return (
       <GridItem
-        absoluteLayout={l.absoluteLayout}
         containerWidth={width}
         cols={cols}
         margin={margin}
@@ -616,7 +585,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     // FIXME remove this hack
     if (
       isFirefox &&
-      e.nativeEvent.target.className.indexOf(layoutClassName) === -1
+      !e.nativeEvent.target.classList.contains(layoutClassName)
     ) {
       // without this Firefox will not allow drop if currently over droppingItem
       e.preventDefault();
@@ -671,7 +640,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       });
     } else if (this.state.droppingPosition) {
       const { left, top } = this.state.droppingPosition;
-      const shouldUpdatePosition = left !== layerX || top !== layerY;
+      const shouldUpdatePosition = left != layerX || top != layerY;
       if (shouldUpdatePosition) {
         this.setState({ droppingPosition });
       }
@@ -759,5 +728,3 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     );
   }
 }
-
-//        {this.placeholder()}
