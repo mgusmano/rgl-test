@@ -4,6 +4,7 @@
   display: flex;
   flex: 1;
   border: 0px solid red;
+  overflow: auto;
 }
 
 #content {

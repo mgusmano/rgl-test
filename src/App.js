@@ -1,20 +1,65 @@
 /*eslint eqeqeq: "off"*/
 import React, { useEffect, useState, useCallback } from "react";
+
+
+
+//import { useState, useEffect } from 'react';
+
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
+function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
+
+//
+
+
+
+
+
+
+
+
+
 //import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { useGlobalState } from './globalstate/GlobalStateProvider'
 import DynamicLayout from './DynamicLayout';
+import AppPure from './AppPure';
 
 import Absolute from './layouts/Absolute'
 import Container from './layouts/Container'
 import Single from './layouts/Single'
+import Breakpoints from './layouts/Breakpoints'
+import Two from './layouts/Two'
 
 import Simple from './wrapper/Simple'
 
-//import { Responsive, WidthProvider } from './react-grid-layout';
-//import WidthProvider from 'react-grid-layout';
-//const ResponsiveReactGridLayout = WidthProvider(Responsive);
+
+import { Responsive, WidthProvider } from './react-grid-layout';
+const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 const App = (props) => {
+  const { height, width } = useWindowDimensions();
+  const [items, SetItems] = useState(null)
+  const [currentbreakpoint, setCurrentBreakpoint] = useState(null)
   const [{toolkitTitle}] = useGlobalState();
   //const history = useHistory();
   //const location = useLocation();
@@ -39,10 +84,33 @@ const App = (props) => {
     }
   }, [])
 
+  const [cols, SetCols] = useState(null)
+  const [breakpoints, SetBreakpoints] = useState(null)
   const [layouts, SetLayouts] = useState(null)
+
+  // const generateDOM = (layout) => {
+  //   //console.log('generateDOM',currentbreakpoint)
+  //   return layout.map((l, i) => {
+  //     return (
+  //       <div key={i} data-grid={l} style={{border:"1px solid blue"}}>       
+  //         {/* <SimpleWrapper key={i} layoutitem={l} item={i}> </SimpleWrapper> */}
+  //         {props.width1val}
+  //       </div>
+  //     )
+  //   });
+  // }
+
   useEffect(() => {
-    console.log(props.layouts)
+    //SetCols({ lg: 12, md: 4, sm: 6, xs: 6, xxs: 1 })
+    //SetBreakpoints({ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 })
+
+    //SetCols({ lg: 12, md: 6 })
+    //SetBreakpoints({ lg: 1200, md: 996 })
+
+
+    //console.log(props.layouts)
     SetLayouts(props.layouts)
+
 
     window.addEventListener('mjg', onMessage);
     return function cleanup() {
@@ -50,31 +118,6 @@ const App = (props) => {
     };
   }, [onMessage]);
 
-
-  // const onBreakpointChange = (breakpoint) => {
-  //   SetCurrentBreakpoint(breakpoint)
-  //     // this.setState({
-  //     //   currentBreakpoint: breakpoint
-  //     // });
-  // }
-
-  // const onCompactTypeChange = () => {
-  //   // const { compactType: oldCompactType } = this.state;
-  //   var oldCompactType = compactType;
-
-  //   const newCompactType =
-  //     oldCompactType === "horizontal"
-  //       ? "vertical"
-  //       : oldCompactType === "vertical"
-  //       ? null
-  //       : "horizontal";
-  //   //tis.setState({ compactType });
-  //   SetCompactType(newCompactType)
-  // }
-
-  // const onLayoutChange = (layout, layouts) => {
-  //   //this.props.onLayoutChange(layout, layouts);
-  // }
 
   const onClick = (who) => {
     SetLayouts(null)
@@ -90,60 +133,40 @@ const App = (props) => {
           case 'Single':
             SetLayouts(Single())
             break
+          case 'Breakpoints':
+            SetLayouts(Breakpoints())
+            break
+          case 'Two':
+            SetLayouts(Two())
+            //SetItems(generateDOM(Two()['lg']))
+
+            break
           case 'Clear':
             SetLayouts(null)
             break
         default:
           console.log('other')
       }
-
     })
 
   }
 
-  //
+ 
 
-  const generateDOM = () => {
-    console.log('generateDOM')
-    console.log(layouts)
-    return layouts.lg.map((l, i) => {
-      return (
-        <div 
-          key={i}
-          data-grid={layouts.lg[i]}
-
-          style={{
-            background: 'rgb(5,55,75)',
-            color: 'white',
-            border: '1px solid lightgray',
-            height:'100%',
-            borderRadius: '5px 5px 5px 5px',
-            fontSize: '18px',
-            padding: '0',
-            xheight: '20px',
-            display:'flex',
-            justifyContent:'space-between',
-        }}
-
-
-
-        >       
-hi
-        </div>
-      )
-    });
-  }
-
-  // const onDrop = (elemParams) => {
-  //   alert(`Element parameters: ${JSON.stringify(elemParams)}`);
-  // };
+  const breakpointChange = (breakpoint) => {
+    console.log(breakpoint)
+    setCurrentBreakpoint(breakpoint)
+  };
 
   return (
       <div style={{flex: 1,display:'flex',flexDirection:'column',border:'0px solid green',xwidth:'100%',xheight:'100%',margin:'0'}}>
 
         <div style={{height:'50px',background:'rgb(230, 230, 230)',display:'flex',flexDirection:'row'}}>
           {/* titlebar {toolkitTitle} */}
-          <div style={{fontSize:'24px',margin:'10px'}}>Dynamic Layout Use Case Examples</div>
+          <div style={{fontSize:'24px',margin:'10px'}}>Dynamic Layout Use Case Examples:  window width: {width} ~ height: {height}</div>
+          <div>
+      
+    </div>
 
           {/* <div>
             Current Breakpoint: {currentBreakpoint} (
@@ -166,11 +189,14 @@ hi
               toolkit<br/><br/>  
               <div>Dashboard Width:{width1val} </div>
               <div>Container Width: {width2val}</div>
+              <div>Current Breakpoint: {currentbreakpoint}</div>
 
               <br/>  
               <button onClick={() => onClick('Container')}>Container Component</button>
               <button onClick={() => onClick('Absolute')}>Absolute Widget</button>
               <button onClick={() => onClick('Single')}>Single</button>
+              <button onClick={() => onClick('Breakpoints')}>Breakpoints</button>
+              <button onClick={() => onClick('Two')}>Two</button>
               <button onClick={() => onClick('Clear')}>Clear</button>
               <div style={{overflow:'auto',height:'500px',marginTop:'10px'}}>
               <pre>{JSON.stringify(layouts,null,2)}</pre>
@@ -178,9 +204,12 @@ hi
              
             </div>
           </div>
-          <div style={{flex:'1',display:'flex',border:'0px solid green'}}>
-          {layouts !== null &&    
-           <DynamicLayout level={1} layouts={layouts}/>
+          <div style={{flex:'1',display:'flex',border:'5px solid green'}}>
+          {layouts !== null &&  
+          
+          <AppPure layouts={layouts} width={width-300} currentbreakpoint={currentbreakpoint} breakpointChange={breakpointChange}></AppPure>
+          
+//          <DynamicLayout width1val={width1val} level={1} layouts={layouts} cols={cols} breakpoints={breakpoints} breakpointChange={breakpointChange}/>
 
             // <ResponsiveReactGridLayout
             //   // {...this.props}
@@ -201,7 +230,7 @@ hi
             //   compactType={null}
             //   // preventCollision={!this.state.compactType}
             // >
-            //   {generateDOM()}
+            //          {items}
             // </ResponsiveReactGridLayout>
           }
           </div>

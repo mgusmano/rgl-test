@@ -154,6 +154,7 @@ export default class ResponsiveReactGridLayout extends React.Component<
   state = this.generateInitialState();
 
   generateInitialState(): State {
+    console.log('generateInitialState')
     const { width, breakpoints, layouts, cols } = this.props;
     const breakpoint = getBreakpointFromWidth(breakpoints, width);
     const colNo = getColsFromBreakpoint(breakpoint, cols);
@@ -207,7 +208,6 @@ export default class ResponsiveReactGridLayout extends React.Component<
       !isEqual(this.props.breakpoints, prevProps.breakpoints) ||
       !isEqual(this.props.cols, prevProps.cols)
     ) {
-      console.log('here')
       this.onWidthChange(prevProps);
     }
   }
@@ -225,18 +225,15 @@ export default class ResponsiveReactGridLayout extends React.Component<
    * Width changes are necessary to figure out the widget widths.
    */
   onWidthChange(prevProps: Props<*>) {
+    //console.log('width changed')
+
     //mjg
     var type = 'width' + this.props.level
     var payload = this.props.width
-    console.log('onWidthChange')
+    //console.log('onWidthChange')
     window.dispatchEvent(new CustomEvent('mjg',{detail:{type:type,payload:payload}}));
-
-
-
-
-
-    
     //mjg
+
     const { breakpoints, cols, layouts, compactType } = this.props;
     const newBreakpoint =
       this.props.breakpoint ||
@@ -252,6 +249,7 @@ export default class ResponsiveReactGridLayout extends React.Component<
       prevProps.breakpoints !== breakpoints ||
       prevProps.cols !== cols
     ) {
+      //console.log('something changed')
       // Preserve the current layout if the current breakpoint is not present in the next layouts.
       if (!(lastBreakpoint in newLayouts))
         newLayouts[lastBreakpoint] = cloneLayout(this.state.layout);
@@ -286,6 +284,9 @@ export default class ResponsiveReactGridLayout extends React.Component<
         layout: layout,
         cols: newCols
       });
+    }
+    else {
+      //console.log('nothing changed')
     }
 
     const margin = getIndentationValue(this.props.margin, newBreakpoint);

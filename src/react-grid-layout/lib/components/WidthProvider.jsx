@@ -60,6 +60,7 @@ export default function WidthProvider<Config>(
     mounted: boolean = false;
 
     componentDidMount() {
+      //console.log('componentDidMount')
       this.mounted = true;
 
       window.addEventListener("resize", this.onWindowResize);
@@ -78,8 +79,24 @@ export default function WidthProvider<Config>(
       if (!this.mounted) return;
       // eslint-disable-next-line react/no-find-dom-node
       const node = ReactDOM.findDOMNode(this); // Flow casts this to Text | Element
-      if (node instanceof HTMLElement)
-        this.setState({ width: node.offsetWidth });
+      //console.dir(node)
+      if (node instanceof HTMLElement) {
+        //console.log(this.state)
+        //console.log('yes')
+        this.setState({ width: node.offsetWidth });  
+      }
+      else {
+        console.log('no, not an instance of HTMLElement')
+      }
+
+
+    //mjg
+    var type = 'width' + '1' //this.props.level
+    var payload = node.offsetWidth 
+    //console.log('onWidthChange')
+    window.dispatchEvent(new CustomEvent('mjg',{detail:{type:type,payload:payload}}));
+    //mjg
+
     };
 
     render() {

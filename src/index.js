@@ -4,6 +4,8 @@ import { GlobalStateProvider } from './globalstate/GlobalStateProvider';
 import "./styles/styles.css";
 import "./styles/example-styles.css";
 import App from './App';
+import App2 from './App2';
+import AppPure from './AppPure';
 
 var layouts = {"lg":[
   {
