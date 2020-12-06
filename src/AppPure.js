@@ -21,7 +21,7 @@ export default class AppPure extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    console.log('constructor')
+    //console.log('constructor')
 
     window.addEventListener('mjg', this.onMessage);
 
@@ -35,7 +35,7 @@ export default class AppPure extends React.PureComponent {
           break
       }
     }
-    console.log(currentbreakpoint)
+    //console.log(currentbreakpoint)
 
     this.state = { 
         width: 0,
@@ -46,21 +46,27 @@ export default class AppPure extends React.PureComponent {
     };
 
     var me = this
+    var numcols = cols[currentbreakpoint]
+    console.log(cols[currentbreakpoint])
     requestAnimationFrame(function() {
         me.setState({ 
             width: 500,
             layouts: me.props.layouts,
-            cols: cols[currentbreakpoint],
+            cols: cols,
             breakpoints: breakpoints,
-            currentbreakpoint: currentbreakpoint
+            currentbreakpoint: currentbreakpoint,
+            numcols: numcols,
         })
-        me.props.parmsChange({cols,breakpoints})
+        if (me.props.parmsChange != undefined) {
+          me.props.parmsChange({cols,breakpoints,numcols})
+        }
+
     })
   }
 
   generate = () => {
     var g = this.generateDOM()
-    console.log(g)
+    //console.log(g)
     return g
   }
 
@@ -87,16 +93,21 @@ export default class AppPure extends React.PureComponent {
   }
 
   onBreakpointChange = (breakpoint )=> {
-    console.log('onBreakpointChange',breakpoint)
-    this.props.breakpointChange(breakpoint)
+    //console.log('onBreakpointChange',breakpoint)
+    //console.log(this.props.breakpointChange)
+    var numcols =this.state.cols[breakpoint]
+    if (this.props.breakpointChange != undefined) {
+      this.props.breakpointChange({breakpoint,numcols})
+    }
     this.setState({
         //cols: this.state.cols[breakpoint],
-        currentbreakpoint: breakpoint
+        currentbreakpoint: breakpoint,
+        numcols: numcols
     })
   }
 
   render() {
-    console.log('this.state.width',this.state.width)
+    //console.log('this.state.width',this.state.width)
     return (
       <>
       {this.state.layouts !== null &&

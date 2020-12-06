@@ -25,6 +25,7 @@ const App = (props) => {
   const [currentbreakpoint, setCurrentBreakpoint] = useState(null)
   const [currentcols, setCurrentCols] = useState(null)
   const [currentbreakpoints, setCurrentBreakpoints] = useState(null)
+  const [currentnumcols, setCurrentNumcols] = useState(null)
   const [layouts, SetLayouts] = useState(null)
   const [gridlines, SetGridlines] = useState(false)
 
@@ -61,7 +62,7 @@ const App = (props) => {
       SetLayouts(null)
 
       requestAnimationFrame(function() {
-        console.log(t)
+        console.log(e.target.innerText,': layouts',t)
         SetLayouts(t)
       })
     })
@@ -80,16 +81,24 @@ const App = (props) => {
     SetGridlines(window['processsvg'])
   }
 
-  const breakpointChange = (breakpoint) => {
-    window['currentbreakpoint'] = breakpoint
-    setCurrentBreakpoint(breakpoint)
+  const breakpointChange = (parms) => {
+    window['currentbreakpoint'] = parms.breakpoint
+    setCurrentBreakpoint(parms.breakpoint)
+    setCurrentNumcols(parms.numcols)
   };
 
   const parmsChange = (parms) => {
     window['breakpoints'] = parms.breakpoints
     window['cols'] = parms.cols
+
+    console.log('parms.cols',parms.cols)
+    console.log('parms.breakpoints',parms.breakpoints)
+    console.log('parms.numcols',parms.numcols)
+
+
     setCurrentCols(parms.cols)
     setCurrentBreakpoints(parms.breakpoints)
+    setCurrentNumcols(parms.numcols)
   };
 
   return (
@@ -122,15 +131,15 @@ const App = (props) => {
         </div>
 
         <div style={{flex:'1',display:'flex',border:'0px solid green'}}>
-        {layouts !== null &&          
-        <AppPure 
-          layouts={layouts}
-          width={width-300-300}
-          currentbreakpoint={currentbreakpoint}
-          breakpointChange={breakpointChange}
-          parmsChange={parmsChange}
-        ></AppPure>
-        }
+          {layouts !== null &&          
+          <AppPure 
+            layouts={layouts}
+            width={width-300-300}
+            currentbreakpoint={currentbreakpoint}
+            breakpointChange={breakpointChange}
+            parmsChange={parmsChange}
+          ></AppPure>
+          }
         </div>
 
         <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',width:'300px',background:'black',color:'white',border:'0px solid red',xoverflow:'auto'}}>
@@ -150,23 +159,13 @@ const App = (props) => {
             <div>Dashboard Width:{width1val} </div>
             <div>Container Width: {width2val}</div>
             <div>Current Breakpoint: {currentbreakpoint}</div>
+            <div>Current numcols: {currentnumcols}</div>
+
           </div>
  
         </div>
 
-        {/* <div style={{display:'flex',flex:'1',xwidth:'300px',background:'black',color:'white',border:'1px solid red',overflow:'auto'}}>
-          <div style={{display:'flex',flexDirection:'column'}}>
-            <div style={{flex:'1',xoverflow:'auto',xheight:'100%'}}>
-            {layouts !== null &&  
-              <pre  style={{xoverflow:'auto'}}>{JSON.stringify(layouts,null,2)}</pre>
-            }
-            </div>   
-          </div>
-        </div> */}
-
       </div>
-
-
 
     </div>
   )
