@@ -714,6 +714,57 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     this.props.onDrop(layout, item, e);
   };
 
+  processSvg = () => {
+
+
+    if (window['breakpoints'] !== undefined) {
+
+      console.log('cols',window['cols'])
+      console.log('breakpoints',window['breakpoints'])
+
+      console.log('width1val',window['width1val'])
+      console.log('currentbreakpoint',window['currentbreakpoint'])
+
+      var numcols = window['cols'][window['currentbreakpoint']]
+      console.log('numcols',numcols)
+      var breakpointwidth = window['breakpoints'][window['currentbreakpoint']]
+      console.log('breakpointwidth',breakpointwidth)
+      //console.log(window['breakpoints'][window['currentbreakpoint']])
+  
+      //var numcols = 12
+      var eachwidth = window['width1val'] /numcols
+      var eachheight = 70
+
+
+
+      const columns = []
+      var i;
+      for (i = 0; i <= numcols; i++) {
+        var x = i*eachwidth
+        columns.push( <line key={i} x1={x} y1="0" x2={x} y2="1000" style={{stroke:'rgb(0,0,0)',strokeWidth:'1'}} />)
+      }
+
+      const rows = []
+      var i;
+      for (i = 0; i <= 20; i++) {
+        var x = i*eachheight
+        rows.push( <line key={i} x1="0" y1={x} x2="2000" y2={x} style={{stroke:'rgb(0,0,0)',strokeWidth:'1'}} />)
+      }
+
+      return (
+        <svg style={{height:'100%',width:'100%'}}>
+          {columns}
+          {rows}
+        </svg>
+      )
+    }
+    else {
+
+    }
+
+
+  }
+
   render() {
     const { className, style, isDroppable, innerRef } = this.props;
 
@@ -722,6 +773,8 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       height: this.containerHeight(),
       ...style
     };
+
+
 
     return (
       <div
@@ -733,6 +786,11 @@ export default class ReactGridLayout extends React.Component<Props, State> {
         onDragEnter={isDroppable ? this.onDragEnter : noop}
         onDragOver={isDroppable ? this.onDragOver : noop}
       >
+
+        { window['processsvg'] === true &&
+        this.processSvg()
+        }
+
         {React.Children.map(this.props.children, child =>
           this.processGridItem(child)
         )}

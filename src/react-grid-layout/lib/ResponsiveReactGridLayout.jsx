@@ -154,7 +154,7 @@ export default class ResponsiveReactGridLayout extends React.Component<
   state = this.generateInitialState();
 
   generateInitialState(): State {
-    console.log('generateInitialState')
+    //console.log('generateInitialState')
     const { width, breakpoints, layouts, cols } = this.props;
     const breakpoint = getBreakpointFromWidth(breakpoints, width);
     const colNo = getColsFromBreakpoint(breakpoint, cols);

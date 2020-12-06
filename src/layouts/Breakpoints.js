@@ -1,34 +1,19 @@
 export default function () {
     var l = {
       "lg":[
-        {
-          l:1,i:"10",widget:{type:"child"},
-          w:1,h:1,x:11,y:0
-        }
+        { x:1,y:1, w:12,h:1,  i:"0", l:1,widget:{type:"child"} },
       ],
       "md":[
-        {
-          l:1,i:"11",widget:{type:"child"},
-          w:1,h:1,x:3,y:0
-        }
+        { x:1,y:1, w:6,h:1,  i:"0", l:1,widget:{type:"child"} },
       ],
       "sm":[
-        {
-          l:1,i:"12",widget:{type:"container"},
-          w:1,h:1,x:0,y:0,
-        }
+        { x:1,y:1, w:4,h:1,  i:"0", l:1,widget:{type:"child"} },
       ],
       "xs":[
-        {
-          l:1,i:"13",widget:{type:"container"},
-          w:1,h:1,x:0,y:0,
-        }
+        { x:1,y:1, w:2,h:1,  i:"0", l:1,widget:{type:"child"} },
       ],
       "xxs":[
-        {
-          l:1,i:"14",widget:{type:"container"},
-          w:1,h:1,x:0,y:0,
-        }
+        { x:1,y:1, w:2,h:1,  i:"0", l:1,widget:{type:"child"} },
       ],
     }
     return l
