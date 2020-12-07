@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DynamicLayout from './DynamicLayout.jsx';
 //const Ext = window['Ext']
+import AppPure from './AppPure'
 
 const ContainerWindow = (props) => {
   const [layouts, SetLayouts] = useState(null)
@@ -22,7 +23,7 @@ const ContainerWindow = (props) => {
             overflow:'auto'
           }} 
         >
-            <DynamicLayout level={2} layouts={layouts}/>
+            <AppPure level={2} layouts={layouts}/>
         </div> 
       }
           </>   

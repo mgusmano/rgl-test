@@ -4,6 +4,8 @@ import _ from "lodash";
 import { Responsive, WidthProvider } from './react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
+import SimpleWrapper from './wrapper/SimpleWrapper'
+
 export default class AppPure extends React.PureComponent {
 
   onMessage = (e) => {
@@ -39,6 +41,7 @@ export default class AppPure extends React.PureComponent {
 
     this.state = { 
         width: 0,
+        level: this.props.level,
         layouts: null,
         cols: null,
         breakpoints: null,
@@ -52,6 +55,7 @@ export default class AppPure extends React.PureComponent {
         me.setState({ 
             width: 500,
             layouts: me.props.layouts,
+            level: me.props.level,
             cols: cols,
             breakpoints: breakpoints,
             currentbreakpoint: currentbreakpoint,
@@ -81,8 +85,9 @@ export default class AppPure extends React.PureComponent {
     return this.state.layouts[thisbreakpoint].map((l, i) => {
       return (
   //       <SimpleWrapper key={i} layoutitem={l} item={i}></SimpleWrapper>
-        <div key={i} layoutitem={l} data-grid={l} item={i} style={{display:'flex',background:'lightgray'}}>
-          <div className="text" style={{border:'1px solid gray',height:'100%',fontSize:'11px'}}>{i}<br/> x:{l.x},y:{l.y}<br/> w:{l.w}, l:{l.h}</div>
+        <div key={i} layoutitem={l} data-grid={l} item={i} style={{display:'flex'}}>
+           <SimpleWrapper key={i} layoutitem={l} item={i}></SimpleWrapper>
+          {/* <div className="text" style={{border:'1px solid gray',height:'100%',fontSize:'11px'}}>{i}<br/> x:{l.x},y:{l.y}<br/> w:{l.w}, l:{l.h}</div> */}
         </div>
       );
     });
