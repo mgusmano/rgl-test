@@ -12,6 +12,7 @@ export default class AppPure extends React.PureComponent {
     if (!e.detail) {return}
     switch (e.detail.type) {
       case 'width1':
+        console.log('b')
         this.setState({
           width: e.detail.payload
         })
@@ -26,7 +27,7 @@ export default class AppPure extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    //console.log('constructor')
+    console.log('constructor')
 
     window.addEventListener('mjg', this.onMessage);
 
@@ -42,22 +43,22 @@ export default class AppPure extends React.PureComponent {
     }
     //console.log(currentbreakpoint)
 
-    this.state = { 
-      currentdraw: null,
-      width: 0,
-      level: this.props.level,
-      layouts: this.props.layouts,
-      cols: null,
-      breakpoints: null,
-      currentbreakpoint: currentbreakpoint
-    };
-    this.generate()
+    // this.state = { 
+    //   currentdraw: null,
+    //   width: 0,
+    //   level: this.props.level,
+    //   layouts: this.props.layouts,
+    //   cols: null,
+    //   breakpoints: null,
+    //   currentbreakpoint: currentbreakpoint
+    // };
+    // this.generate()
 
     var me = this
     var numcols = cols[currentbreakpoint]
     console.log(cols[currentbreakpoint])
-    requestAnimationFrame(function() {
-        me.setState({ 
+    //requestAnimationFrame(function() {
+        me.state ={ 
           currentdraw: null,
           width: 500,
           layouts: me.props.layouts,
@@ -66,24 +67,39 @@ export default class AppPure extends React.PureComponent {
           breakpoints: breakpoints,
           currentbreakpoint: currentbreakpoint,
           numcols: numcols,
-        })
+        }
+
+        // me.setState({ 
+        //   currentdraw: null,
+        //   width: 500,
+        //   layouts: me.props.layouts,
+        //   level: me.props.level,
+        //   cols: cols,
+        //   breakpoints: breakpoints,
+        //   currentbreakpoint: currentbreakpoint,
+        //   numcols: numcols,
+        // })
+
+
         if (me.props.parmsChange != undefined) {
           me.props.parmsChange({cols,breakpoints,numcols})
         }
-        me.generate()
+        //me.generate()
+        console.log('5')
 
-    })
+    //})
   }
 
   generate = () => {
     var g = this.generateDOM()
     //console.log(g)
+    console.log('c')
     this.setState({currentdraw: g})
     return g
   }
 
   generateDOM = () => {
-    console.log(this.state.layouts)
+    //console.log(this.state.layouts)
     var thisbreakpoint = ''
     if (this.state.layouts[this.state.currentbreakpoint] == undefined) {
       thisbreakpoint = 'lg'
@@ -91,7 +107,7 @@ export default class AppPure extends React.PureComponent {
     else {
       thisbreakpoint = this.state.currentbreakpoint
     }
-    console.log(JSON.stringify(this.state.layouts[thisbreakpoint]))
+    //console.log(JSON.stringify(this.state.layouts[thisbreakpoint]))
     return this.state.layouts[thisbreakpoint].map((l, i) => {
       return (
   //       <SimpleWrapper key={i} layoutitem={l} item={i}></SimpleWrapper>
@@ -119,6 +135,7 @@ export default class AppPure extends React.PureComponent {
     if (this.props.breakpointChange != undefined) {
       this.props.breakpointChange({breakpoint,numcols})
     }
+    console.log('a')
     this.setState({
         //cols: this.state.cols[breakpoint],
         currentbreakpoint: breakpoint,
@@ -130,7 +147,7 @@ export default class AppPure extends React.PureComponent {
     //console.log('this.state.currentdraw',this.state.currentdraw)
     return (
       <>
-      {this.state.layouts !== null &&
+      {this.state !== null &&
       <ResponsiveReactGridLayout
         onBreakpointChange={this.onBreakpointChange}
         onLayoutChange={this.onLayoutChange}

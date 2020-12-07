@@ -79,6 +79,14 @@ const App = (props) => {
     }
     console.log( window['processsvg'])
     SetGridlines(window['processsvg'])
+
+    SetLayouts(null)
+
+    requestAnimationFrame(function() {
+      SetLayouts(layouts)
+    })
+
+
   }
 
   const breakpointChange = (parms) => {
@@ -91,10 +99,9 @@ const App = (props) => {
     window['breakpoints'] = parms.breakpoints
     window['cols'] = parms.cols
 
-    console.log('parms.cols',parms.cols)
-    console.log('parms.breakpoints',parms.breakpoints)
-    console.log('parms.numcols',parms.numcols)
-
+    //console.log('parms.cols',parms.cols)
+    //console.log('parms.breakpoints',parms.breakpoints)
+    //console.log('parms.numcols',parms.numcols)
 
     setCurrentCols(parms.cols)
     setCurrentBreakpoints(parms.breakpoints)

@@ -7,7 +7,7 @@ const SimpleWrapper = (props) => {
 
    
     useEffect(() => {
-        console.log('props',JSON.stringify(props.layoutitem))
+        //console.log('props',JSON.stringify(props.layoutitem))
 
     }, []);
   
