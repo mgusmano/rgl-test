@@ -1,0 +1,46 @@
+{
+  "_from": "@sencha/ext-classic-runtime",
+  "_id": "@sencha/ext-classic-runtime@7.3.0",
+  "_inBundle": false,
+  "_integrity": "sha1-GXl6J4xDqZDzVnQJFUL8fVSjTGk=",
+  "_location": "/@sencha/ext-classic-runtime",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@sencha/ext-classic-runtime",
+    "name": "@sencha/ext-classic-runtime",
+    "escapedName": "@sencha%2fext-classic-runtime",
+    "scope": "@sencha",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://sencha.myget.org/F/commercial-test/npm/@sencha/ext-classic-runtime/-/@sencha/ext-classic-runtime-7.3.0.tgz",
+  "_shasum": "19797a278c43a990f35674091542fc7d54a34c69",
+  "_spec": "@sencha/ext-classic-runtime",
+  "_where": "/Volumes/BOOTCAMP/bridges/testingFolder/ext-angular-classic-demo",
+  "author": {
+    "name": "Sencha"
+  },
+  "bundleDependencies": false,
+  "dependencies": {},
+  "deprecated": false,
+  "devDependencies": {},
+  "homepage": "https://github.com/sencha/",
+  "keywords": [],
+  "license": "ISC",
+  "name": "@sencha/ext-classic-runtime",
+  "peerDependencies": {},
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sencha/"
+  },
+  "scripts": {},
+  "version": "7.3.0"
+}
