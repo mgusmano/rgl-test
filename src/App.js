@@ -1,10 +1,13 @@
 /*eslint eqeqeq: "off"*/
 import React, { useEffect, useState, useCallback } from "react";
 import AppPure from './AppPure';
+import AddWidgetDialog from './AddWidgetDialog'
+import Button from '@material-ui/core/Button';
 import useWindowDimensions from './WindowDimension'
 
 const App = (props) => {
   const { height, width } = useWindowDimensions();
+  const [addWidgetOpen, setAddWidgetOpen] = React.useState(false);
   const [headerheight, SetHeaderHeight] = useState(null)
   const [leftwidth, SetLeftWidth] = useState(null)
   const [rightwidth, SetRightWidth] = useState(null)
@@ -44,8 +47,32 @@ const App = (props) => {
     };
   }, [onMessage]);
 
+
+  const handleAddWidgetOpen = () => {
+    setAddWidgetOpen(true);
+  };
+
+  const handleAddWidgetClose = (values) => {
+    console.log(values)
+    setAddWidgetOpen(false);
+    // if (values == null) {return}
+    // console.log(widgets)
+    // var maxId = Math.max.apply(Math, widgets.map(function(o) { return o.id; }))
+    // console.log(maxId)
+    // if (maxId == -Infinity) {
+    //   maxId = 0
+    // }
+    // console.log(maxId)
+    // values.forEach(value => {
+    //   value.id = ++maxId
+    // })
+    // console.log(values)
+    // setWidgets(widgets.concat(values))
+  };
+
   const onClick = (e) => {
-    import('./layouts/'+e.target.innerText)
+    console.log(e)
+    import('./layouts/'+e.target.innerHTML)
     .then(obj => {
       SetTotalLayout(null)
 
@@ -115,17 +142,21 @@ const App = (props) => {
 
         <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',width:leftwidth+'px',background:'black',color:'white',border:'0px solid red'}}>
  
-          <div style={{display:'flex',flexDirection:'column',margin:'10px'}}>
+          <div style={{display:'flex',flexDirection:'column',margin:'10px',xbackground:'rgb(5,55,75)',fontSize:'11px',color:'white'}}>
             toolkit<br/><br/>   
-            <button onClick={onClick}>Container</button>
-            <button onClick={onClick}>Absolute</button>
-            <button onClick={onClick}>One</button>
-            <button onClick={onClick}>Two</button>
-            <button onClick={onClick}>Breakpoints</button>
-            <button onClick={onClick}>Children</button>
+            <Button onClick={onClick} style={{color:'white',background:'rgb(5,55,75)',marginTop:'5px'}}>Container</Button>
+            <Button onClick={onClick} style={{color:'white',background:'rgb(5,55,75)',marginTop:'5px'}}>Absolute</Button>
+            <Button onClick={onClick} style={{color:'white',background:'rgb(5,55,75)',marginTop:'5px'}}>One</Button>
+            <Button onClick={onClick} style={{color:'white',background:'rgb(5,55,75)',marginTop:'5px'}}>Two</Button>
+            <Button onClick={onClick} style={{color:'white',background:'rgb(5,55,75)',marginTop:'5px'}}>Breakpoints</Button>
+            <Button onClick={onClick} style={{color:'white',background:'rgb(5,55,75)',marginTop:'5px'}}>Children</Button>
+
 
             <br/><br/>  
-            <button onClick={onGridLines}>Grid Lines {gridlines.toString()}</button>  
+            <Button onClick={onGridLines} style={{color:'white',background:'rgb(5,55,75)',marginTop:'5px'}}>Grid Lines {gridlines.toString()}</Button>  
+
+            <Button onClick={handleAddWidgetOpen} style={{color:'white',background:'rgb(5,55,75)',marginTop:'5px'}} >Sample Dialog</Button>
+            <AddWidgetDialog open={addWidgetOpen} onClose={handleAddWidgetClose} />
 
             {/* <button onClick={SetLayouts(null)}>Clear</button> */}  
           </div>
