@@ -716,26 +716,31 @@ export default class ReactGridLayout extends React.Component<Props, State> {
 
   processSvg = () => {
 
+    console.log('processSvg',window['currentbreakpoint'])
 
-    if (window['breakpoints'] !== undefined) {
+    if (window['currentbreakpoint'] !== undefined) {
 
-      console.log('cols',window['cols'])
-      console.log('breakpoints',window['breakpoints'])
+      //console.log('cols',window['cols'])
+      //console.log('breakpoints',window['breakpoints'])
 
-      console.log('width1val',window['width1val'])
-      console.log('currentbreakpoint',window['currentbreakpoint'])
+      //console.log('width1val',window['width1val'])
+      //console.log('currentbreakpoint',window['currentbreakpoint'])
 
-      var numcols = window['cols'][window['currentbreakpoint']]
-      console.log('numcols',numcols)
-      var breakpointwidth = window['breakpoints'][window['currentbreakpoint']]
-      console.log('breakpointwidth',breakpointwidth)
-      //console.log(window['breakpoints'][window['currentbreakpoint']])
+      var numcols;
+      var breakpointwidth;
+      if (window['cols'][window['currentbreakpoint']] == undefined) {
+        numcols = window['cols']['lg']
+        breakpointwidth = window['breakpoints']['lg']
+      }
+      else {
+        numcols = window['cols'][window['currentbreakpoint']]
+        breakpointwidth = window['breakpoints'][window['currentbreakpoint']]
+      }
+      //console.log('numcols',numcols)
+      //console.log('breakpointwidth',breakpointwidth)
   
-      //var numcols = 12
       var eachwidth = window['width1val'] /numcols
       var eachheight = 70
-
-
 
       const columns = []
       var i;

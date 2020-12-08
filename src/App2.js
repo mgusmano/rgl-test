@@ -3,7 +3,7 @@ import { Responsive, WidthProvider } from './react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 //import RGL, { WidthProvider } from "react-grid-layout";
-import Two from './layouts/Two'
+//import Two from './layouts/Two'
 //const ReactGridLayout = WidthProvider(RGL);
 
 const App2 = (props) => {

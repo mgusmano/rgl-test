@@ -1,32 +1,36 @@
 /*eslint eqeqeq: "off"*/
 import React, { useEffect, useState, useCallback } from "react";
-
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {width,height};
-}
-
-function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-  return windowDimensions;
-}
-
 import AppPure from './AppPure';
+import useWindowDimensions from './WindowDimension'
+
+// function getWindowDimensions() {
+//   const { innerWidth: width, innerHeight: height } = window;
+//   return {width,height};
+// }
+
+// function useWindowDimensions() {
+//   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+//   useEffect(() => {
+//     function handleResize() {
+//       setWindowDimensions(getWindowDimensions());
+//     }
+//     window.addEventListener('resize', handleResize);
+//     return () => window.removeEventListener('resize', handleResize);
+//   }, []);
+//   return windowDimensions;
+// }
 
 const App = (props) => {
   const { height, width } = useWindowDimensions();
+  const [headerheight, SetHeaderHeight] = useState(null)
+  const [leftwidth, SetLeftWidth] = useState(null)
+  const [rightwidth, SetRightWidth] = useState(null)
+
+  const [totallayout, SetTotalLayout] = useState(null)
   const [currentbreakpoint, setCurrentBreakpoint] = useState(null)
   const [currentcols, setCurrentCols] = useState(null)
   const [currentbreakpoints, setCurrentBreakpoints] = useState(null)
   const [currentnumcols, setCurrentNumcols] = useState(null)
-  const [layouts, SetLayouts] = useState(null)
   const [gridlines, SetGridlines] = useState(false)
 
   const [width1val, setWidth1Val] = useState(null)
@@ -47,7 +51,9 @@ const App = (props) => {
   }, [])
 
   useEffect(() => {
-    SetLayouts(props.layouts)
+    SetHeaderHeight(50)
+    SetLeftWidth(300)
+    SetRightWidth(300)
 
     window.addEventListener('mjg', onMessage);
     return function cleanup() {
@@ -58,12 +64,25 @@ const App = (props) => {
   const onClick = (e) => {
     import('./layouts/'+e.target.innerText)
     .then(obj => {
-      var t = obj.default()
-      SetLayouts(null)
+      SetTotalLayout(null)
+
+      var layouts = {lg:[{ x:0,y:0, w:1,h:1,  i:"0", l:1,widget:{type:"child"} }]}
+      try {layouts = obj.layouts()}catch(e) {}
+
+      var cols = { lg: 12, md: 6, sm: 4, xs: 2, xxs: 1 }
+      try {cols = obj.cols()}catch(e) {console.log('no cols')}
+
+      var breakpoints = { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }
+      try {breakpoints = obj.breakpoints()}catch(e) {}
 
       requestAnimationFrame(function() {
-        console.log(e.target.innerText,': layouts',t)
-        SetLayouts(t)
+        SetTotalLayout({
+          cols,
+          breakpoints,
+          layouts,
+          width: width - leftwidth - rightwidth,
+          level: 1
+        })
       })
     })
     .catch(err => {console.log(err)})
@@ -77,47 +96,41 @@ const App = (props) => {
     else {
       window['processsvg'] = false
     }
-    console.log( window['processsvg'])
+    //console.log( window['processsvg'])
     SetGridlines(window['processsvg'])
 
-    SetLayouts(null)
+    SetTotalLayout(null)
 
-    requestAnimationFrame(function() {
-      SetLayouts(layouts)
-    })
-
-
+    if (totallayout !== null) {
+      requestAnimationFrame(function() {
+        SetTotalLayout({
+          cols: totallayout.cols,
+          breakpoints: totallayout.breakpoints,
+          layouts: totallayout.layouts,
+          width: width - leftwidth - rightwidth,
+          level: 1
+        })
+      })
+    }
   }
 
-  const breakpointChange = (parms) => {
-    window['currentbreakpoint'] = parms.breakpoint
-    setCurrentBreakpoint(parms.breakpoint)
-    setCurrentNumcols(parms.numcols)
-  };
-
   const parmsChange = (parms) => {
-    window['breakpoints'] = parms.breakpoints
-    window['cols'] = parms.cols
-
-    //console.log('parms.cols',parms.cols)
-    //console.log('parms.breakpoints',parms.breakpoints)
-    //console.log('parms.numcols',parms.numcols)
-
     setCurrentCols(parms.cols)
     setCurrentBreakpoints(parms.breakpoints)
     setCurrentNumcols(parms.numcols)
+    setCurrentBreakpoint(parms.currentbreakpoint)
   };
 
   return (
     <div style={{flex: 1,display:'flex',flexDirection:'column',border:'0px solid green',xwidth:'100%',xheight:'100%',margin:'0'}}>
 
-      <div style={{height:'50px',background:'rgb(230, 230, 230)',display:'flex',flexDirection:'row'}}>
+      <div style={{height:headerheight+'px',background:'rgb(230, 230, 230)',display:'flex',flexDirection:'row'}}>
         <div style={{fontSize:'24px',margin:'10px'}}>Dynamic Layout Use Case Examples</div>
       </div>
 
       <div style={{flex:'1',display:'flex',flexDirection:'row'}}>
 
-        <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',width:'300px',background:'black',color:'white',border:'0px solid red'}}>
+        <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',width:leftwidth+'px',background:'black',color:'white',border:'0px solid red'}}>
  
           <div style={{display:'flex',flexDirection:'column',margin:'10px'}}>
             toolkit<br/><br/>   
@@ -125,7 +138,8 @@ const App = (props) => {
             <button onClick={onClick}>Absolute</button>
             <button onClick={onClick}>One</button>
             <button onClick={onClick}>Two</button>
-            <button onClick={onClick}>Breakpoints</button>   
+            <button onClick={onClick}>Breakpoints</button>
+            <button onClick={onClick}>Children</button>
 
             <br/><br/>  
             <button onClick={onGridLines}>Grid Lines {gridlines.toString()}</button>  
@@ -133,28 +147,25 @@ const App = (props) => {
             {/* <button onClick={SetLayouts(null)}>Clear</button> */}  
           </div>
 
- 
-
         </div>
 
-        <div style={{flex:'1',display:'flex',border:'0px solid green'}}>
-          {layouts !== null &&          
+        <div style={{flex:'1',display:'flex',border:'0px solid green',overflow:'auto',width:'100%'}}>
+        <div style={{flex:'1',xdisplay:'flex',border:'0px solid green',xminWidth:'800px'}}>
+          {totallayout !== null &&          
           <AppPure 
-            layouts={layouts}
-            width={width-300-300}
-            currentbreakpoint={currentbreakpoint}
-            breakpointChange={breakpointChange}
+            totallayout={totallayout}
             parmsChange={parmsChange}
           ></AppPure>
           }
         </div>
+        </div>
 
-        <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',width:'300px',background:'black',color:'white',border:'0px solid red',xoverflow:'auto'}}>
+        <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',width:rightwidth+'px',background:'black',color:'white',border:'0px solid red',xoverflow:'auto'}}>
        
           <div style={{flex:'1',xdisplay:'flex',xflexDirection:'column',overflow:'auto'}}> 
-              {layouts !== null &&  
-                <pre style={{height:'400px'}}>{JSON.stringify(layouts,null,2)}</pre>
-              }
+            {totallayout !== null &&  
+              <pre style={{height:'400px'}}>{JSON.stringify(totallayout.layouts,null,2)}</pre>
+            }
           </div>
 
           <div style={{flex:'1',display:'flex',flexDirection:'column',marginTop:'60px'}}> 
@@ -163,11 +174,16 @@ const App = (props) => {
             <br/>
             <div>Window Width:{width} </div>
             <div>Window Height: {height}</div>
+            <br/>
+            <div>Center Width:{width-leftwidth-rightwidth} </div>
+            <div>Center Height:{height-headerheight} </div>
+            <br/>
             <div>Dashboard Width:{width1val} </div>
-            <div>Container Width: {width2val}</div>
+            <br/>
             <div>Current Breakpoint: {currentbreakpoint}</div>
             <div>Current numcols: {currentnumcols}</div>
-
+            <br/>
+            <div>Container Width: {width2val}</div>
           </div>
  
         </div>

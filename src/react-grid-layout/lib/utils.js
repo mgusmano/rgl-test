@@ -7,6 +7,7 @@ import type {
 } from "react";
 export type LayoutItem = {
   //mjg
+  draggableHandle?: string,
   absoluteLayout: boolean,
   //mjg
   w: number,
@@ -106,6 +107,7 @@ export function cloneLayout(layout: Layout): Layout {
 export function cloneLayoutItem(layoutItem: LayoutItem): LayoutItem {
   return {
     //mjg
+    draggableHandle: layoutItem.draggableHandle,
     absoluteLayout: layoutItem.absoluteLayout,
     //mjg
     w: layoutItem.w,
