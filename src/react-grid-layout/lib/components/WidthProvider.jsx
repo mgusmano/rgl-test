@@ -81,7 +81,8 @@ export default function WidthProvider<Config>(
       const node = ReactDOM.findDOMNode(this); // Flow casts this to Text | Element
       //console.dir(node)
       if (node instanceof HTMLElement) {
-        //console.log(this.state)
+        console.log('in window resize')
+        console.log(this)
         //console.log('yes')
         this.setState({ width: node.offsetWidth });  
       }

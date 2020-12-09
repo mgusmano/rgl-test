@@ -16,7 +16,7 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 //const Responsive2 = WidthProvider(Responsive);
 //import ResponsiveReactGridLayout from './react-grid-layout';
 
-const DynamicLayout = (props) => {
+const DynamicLayoutx = (props) => {
   const [currentbreakpoint, setCurrentBreakpoint] = useState('lg')
   const [previousbreakpoint, setPreviousBreakpoint] = useState(null)
 
@@ -170,4 +170,4 @@ hi
 
 //{generateDOM(props.layouts)}
 //export default hot(DynamicLayout)
-export default DynamicLayout
+export default DynamicLayoutx

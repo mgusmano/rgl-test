@@ -1,19 +1,8 @@
-.layout {
-  width: 100%;
-  height: 100% !important;
-  display: flex;
-  flex: 1;
-  border: 0px solid red;
-  overflow: auto;
-}
 
 #content {
   width: 100%;
 }
-.react-grid-layout {
-  xbackground: #eee;
-  xmargin-top: 10px;
-}
+
 .layoutJSON {
   background: #ddd;
   border: 1px solid black;

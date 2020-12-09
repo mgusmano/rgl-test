@@ -1,13 +1,14 @@
 /*eslint eqeqeq: "off"*/
 import React, { useEffect, useState, useCallback } from "react";
-import AppPure from './AppPure';
+import DynamicLayout from './DynamicLayout';
+//import Simple from './Simple';
 import AddWidgetDialog from './AddWidgetDialog'
 import Button from '@material-ui/core/Button';
 import useWindowDimensions from './WindowDimension'
 
 const App = (props) => {
   const { height, width } = useWindowDimensions();
-  const [addWidgetOpen, setAddWidgetOpen] = React.useState(false);
+  const [addWidgetOpen, setAddWidgetOpen] = useState(false);
   const [headerheight, SetHeaderHeight] = useState(null)
   const [leftwidth, SetLeftWidth] = useState(null)
   const [rightwidth, SetRightWidth] = useState(null)
@@ -71,10 +72,9 @@ const App = (props) => {
   };
 
   const onClick = (e) => {
-    console.log(e)
     import('./layouts/'+e.target.innerHTML)
     .then(obj => {
-      SetTotalLayout(null)
+      //SetTotalLayout(null)
 
       var layouts = {lg:[{ x:0,y:0, w:1,h:1,  i:"0", l:1,widget:{type:"child"} }]}
       try {layouts = obj.layouts()}catch(e) {}
@@ -85,15 +85,18 @@ const App = (props) => {
       var breakpoints = { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }
       try {breakpoints = obj.breakpoints()}catch(e) {}
 
-      requestAnimationFrame(function() {
+      //console.log('a')
+    //  requestAnimationFrame(function() {
+      //console.log(layouts)
+        //SetTotalLayout(null)
         SetTotalLayout({
-          cols,
-          breakpoints,
-          layouts,
-          width: width - leftwidth - rightwidth,
+          cols: cols,
+          breakpoints: breakpoints,
+          layouts: layouts,
+          //width: width - leftwidth - rightwidth,
           level: 1
         })
-      })
+    //  })
     })
     .catch(err => {console.log(err)})
   }
@@ -110,23 +113,24 @@ const App = (props) => {
     SetGridlines(window['processsvg'])
 
     SetTotalLayout(null)
-
     if (totallayout !== null) {
-      requestAnimationFrame(function() {
+//      requestAnimationFrame(function() {
         SetTotalLayout({
           cols: totallayout.cols,
           breakpoints: totallayout.breakpoints,
           layouts: totallayout.layouts,
-          width: width - leftwidth - rightwidth,
+          //width: width - leftwidth - rightwidth,
           level: 1
         })
-      })
+//      })
     }
   }
 
   const parmsChange = (parms) => {
+    console.log('parmsChange',parms)
     setCurrentCols(parms.cols)
     setCurrentBreakpoints(parms.breakpoints)
+    console.log(parms.numcols)
     setCurrentNumcols(parms.numcols)
     setCurrentBreakpoint(parms.currentbreakpoint)
   };
@@ -166,10 +170,7 @@ const App = (props) => {
         <div style={{flex:'1',display:'flex',border:'0px solid green',overflow:'auto',width:'100%'}}>
         <div style={{flex:'1',xdisplay:'flex',border:'0px solid green',xminWidth:'800px'}}>
           {totallayout !== null &&          
-          <AppPure 
-            totallayout={totallayout}
-            parmsChange={parmsChange}
-          ></AppPure>
+          <DynamicLayout totallayout={totallayout} parmsChange={parmsChange}></DynamicLayout>
           }
         </div>
         </div>

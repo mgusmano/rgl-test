@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 //import DynamicLayout from './DynamicLayout.jsx';
 //const Ext = window['Ext']
 import useWindowDimensions from './WindowDimension'
-import AppPure from './AppPure'
+import AppPure from './DynamicLayout'
 
 const ContainerWindow = (props) => {
   const { height, width } = useWindowDimensions();
