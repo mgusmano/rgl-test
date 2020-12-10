@@ -9,6 +9,7 @@ import useWindowDimensions from './WindowDimension'
 const App = (props) => {
   const { height, width } = useWindowDimensions();
   const [addWidgetOpen, setAddWidgetOpen] = useState(false);
+  const [mode, setMode] = useState('view');
   const [headerheight, SetHeaderHeight] = useState(null)
   const [leftwidth, SetLeftWidth] = useState(null)
   const [rightwidth, SetRightWidth] = useState(null)
@@ -55,7 +56,12 @@ const App = (props) => {
 
   const handleAddWidgetClose = (values) => {
     console.log(values)
+    setMode(values.mode)
     setAddWidgetOpen(false);
+
+
+
+
     // if (values == null) {return}
     // console.log(widgets)
     // var maxId = Math.max.apply(Math, widgets.map(function(o) { return o.id; }))
@@ -93,6 +99,8 @@ const App = (props) => {
           cols: cols,
           breakpoints: breakpoints,
           layouts: layouts,
+          mode: mode,
+          parent: 'mainworkspacex',
           //width: width - leftwidth - rightwidth,
           level: 1
         })
@@ -119,6 +127,8 @@ const App = (props) => {
           cols: totallayout.cols,
           breakpoints: totallayout.breakpoints,
           layouts: totallayout.layouts,
+          parent: 'mainworkspacex',
+          mode: mode,
           //width: width - leftwidth - rightwidth,
           level: 1
         })
@@ -139,7 +149,7 @@ const App = (props) => {
     <div style={{flex: 1,display:'flex',flexDirection:'column',border:'0px solid green',xwidth:'100%',xheight:'100%',margin:'0'}}>
 
       <div style={{height:headerheight+'px',background:'rgb(230, 230, 230)',display:'flex',flexDirection:'row'}}>
-        <div style={{fontSize:'24px',margin:'10px'}}>Dynamic Layout Use Case Examples</div>
+        <div style={{fontSize:'24px',margin:'10px'}}>Dynamic Layout Use Case Examples mode: {mode}</div>
       </div>
 
       <div style={{flex:'1',display:'flex',flexDirection:'row'}}>
@@ -160,7 +170,7 @@ const App = (props) => {
             <Button onClick={onGridLines} style={{color:'white',background:'rgb(5,55,75)',marginTop:'5px'}}>Grid Lines {gridlines.toString()}</Button>  
 
             <Button onClick={handleAddWidgetOpen} style={{color:'white',background:'rgb(5,55,75)',marginTop:'5px'}} >Sample Dialog</Button>
-            <AddWidgetDialog open={addWidgetOpen} onClose={handleAddWidgetClose} />
+            <AddWidgetDialog open={addWidgetOpen} onClose={handleAddWidgetClose} mode={mode} />
 
             {/* <button onClick={SetLayouts(null)}>Clear</button> */}  
           </div>
@@ -168,11 +178,14 @@ const App = (props) => {
         </div>
 
         <div style={{flex:'1',display:'flex',border:'0px solid green',overflow:'auto',width:'100%'}}>
-        <div style={{flex:'1',xdisplay:'flex',border:'0px solid green',xminWidth:'800px'}}>
-          {totallayout !== null &&          
-          <DynamicLayout totallayout={totallayout} parmsChange={parmsChange}></DynamicLayout>
-          }
-        </div>
+          <div style={{flex:'1',xdisplay:'flex',border:'0px solid green',xminWidth:'800px'}}>
+            {totallayout !== null &&          
+            <DynamicLayout
+              totallayout={totallayout}
+              parmsChange={parmsChange}
+            ></DynamicLayout>
+            }
+          </div>
         </div>
 
         <div style={{display:'flex',flexDirection:'column',justifyContent:'space-between',width:rightwidth+'px',background:'black',color:'white',border:'0px solid red',xoverflow:'auto'}}>

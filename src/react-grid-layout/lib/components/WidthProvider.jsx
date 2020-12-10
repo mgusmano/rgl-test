@@ -82,7 +82,7 @@ export default function WidthProvider<Config>(
       //console.dir(node)
       if (node instanceof HTMLElement) {
         console.log('in window resize')
-        console.log(this)
+        //console.log(this)
         //console.log('yes')
         this.setState({ width: node.offsetWidth });  
       }

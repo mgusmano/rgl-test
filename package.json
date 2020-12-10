@@ -3,17 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react-router-dom": "^5.2.0",
-    "react-grid-layout": "~1.2.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.1",
+    "@babel/register": "^7.11.5",
     "classnames": "2.x",
+    "formik": "^2.2.6",
     "lodash.isequal": "^4.0.0",
     "prop-types": "^15.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-draggable": "^4.0.0",
+    "react-grid-layout": "~1.2.0",
     "react-resizable": "^1.10.0",
-    "@babel/register": "^7.11.5"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.1"
   },
   "scripts": {
     "start": "react-app-rewired start",

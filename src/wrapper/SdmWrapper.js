@@ -2,11 +2,8 @@ import React, { useEffect, useState  } from 'react'
 import ChildWindow from '../ChildWindow'
 import ContainerWindow from '../ContainerWindow'
 
-const SimpleWrapper = (props) => {
+const SdmWrapper = (props) => {
     const [draggablehandle, SetDraggableHandle] = useState(null)
-
-    console.log(props)
-    //var mode = props.mode + 'a'
 
     useEffect(() => {
         SetDraggableHandle('layout-item-dragger' + props.level)
@@ -16,12 +13,12 @@ const SimpleWrapper = (props) => {
         <div  
             style={{
                 xbackground: 'rgb(5,55,75)',
-                background: 'lightgray',
+                xbackground: 'lightgray',
                 color: 'black',
                 border: '1px solid black',
                 height:'100%',
                 width:'100%',
-                borderRadius: '5px 5px 5px 5px',
+                xborderRadius: '5px 5px 5px 5px',
                 fontSize: '18px',
                 padding: '0',
                 xheight: '20px',
@@ -30,7 +27,7 @@ const SimpleWrapper = (props) => {
                 justifyContent:'space-between',
             }}
         >
-            <div 
+            {/* <div 
                 style={{
                     background: 'rgb(5,55,75)',
                     color: 'white',
@@ -38,22 +35,22 @@ const SimpleWrapper = (props) => {
                     borderRadius: '5px 5px 0 0',
                     fontSize: '18px',
                     padding: '10px 0 10px 5px',
-                    height: '20px',
+                    height: '40px',
                     display:'flex',
                     justifyContent:'space-between',
                 }}>
                 <div className={draggablehandle} style={{cursor:'move',flex:'1',fontSize: '11px',fontWeight:'bold',paddingTop:'3px',marginLeft:'5px'}}>title</div>
-            </div>  
+            </div>   */}
 
-            {props.layoutitem.widget.type === 'child' 
-                ? ( <ChildWindow item={props.item} layoutitem={props.layoutitem} mode={props.mode}></ChildWindow> )
-                : ( <ContainerWindow layouts={props.layoutitem.children}></ContainerWindow> )
+            {props.layoutitem.widget.type === 'container' 
+                ? (  <ContainerWindow layouts={props.layoutitem.children}></ContainerWindow> )
+                : (  <ChildWindow item={props.item} layoutitem={props.layoutitem}></ChildWindow> )
             }  
         </div> 
     )
 }
 
-export default SimpleWrapper
+export default SdmWrapper
 
 
 // {props.layoutitem.widget.type === 'child' 

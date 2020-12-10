@@ -1,19 +1,22 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import ReactResizeDetector from 'react-resize-detector';
 const Ext = window['Ext']
 
 const ChildWindow = (props) => {
   const contentRef = useRef()
   const [extitem, SetExtItem] = useState(null)
+  const [pixels, SetPixels] = useState(0)
+  
    
   useEffect(() => {
     console.log('useEffect')
+    console.log(props.layoutitem)
     var w = {
       xtype: 'panel',
       xtitle: 'child',
       layout: 'fit',
       items: [
-        { xtype: 'button', text:'button'}
+        { xtype: 'button', text:'button '+props.layoutitem.i}
       ]
     }
     w.width = '100%'
@@ -22,37 +25,31 @@ const ChildWindow = (props) => {
     var theItem = Ext.create(w)
     theItem.render(contentRef.current)
     SetExtItem(theItem)
+    if (props.mode == 'edit') {
+      SetPixels(2)
+    }
   }, []);
 
-  var l = props.layoutitem
-  
+  const { x, y, w, h } = props.layoutitem.l
+  //var l = props.layoutitem
   return (
-    //  <>
-    //  {extitem != null &&
-
     <ReactResizeDetector handleWidth={true} handleHeight={true} onResize={(width, height)=> {
-      //console.log(theItem)
       extitem.updateLayout();
     }}>
-
-
       <div 
         ref={contentRef}
         style={{
           fontSize:'11px',
           width:'100%',
           height:'100%',
-          border:'0px solid green',
+          border:{pixels}+'px solid green',
           overflow:'auto'
         }} 
       >
         {/* {props.item}-{props.layoutitem.widget.type}<br/>
-        x:{l.x},y:{l.y}<br/> w:{l.w}, h:{l.h} */}
+        x:{x},y:{y}<br/> w:{w}, h:{h} */}
       </div> 
-
-      </ReactResizeDetector>
-//  }
-//  </>
+    </ReactResizeDetector>
   )
 }
 
