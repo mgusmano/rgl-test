@@ -2,13 +2,10 @@ export function layouts () {
   return {
     "lg":[
       {
-        "i":"0","x":0,"y":0,"w":2,"h":2,l:1,
+        "i":"0","x":5,"y":5,"w":2,"h":2,l:1,
         "widget":{"type":"child"},"absoluteLayout":true,
-      },
-      {
-        "i":"1","x":3,"y":0,"w":2,"h":8,l:1,
-        "widget":{"type":"child"},"absoluteLayout":false,
       }
+
     ]
   }
 }
@@ -21,3 +18,9 @@ export function cols () {
 export function breakpoints () {
   return { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }
 }
+
+
+// {
+//   "i":"1","x":3,"y":1,"w":2,"h":8,l:1,
+//   "widget":{"type":"child"},"absoluteLayout":false,
+// }

@@ -65,19 +65,65 @@ export function calcGridItemPosition(
   }
   // Otherwise, calculate from grid units.
   else {
-    out.width = calcGridItemWHPx(w, colWidth, margin[0]);
-    out.height = calcGridItemWHPx(h, rowHeight, margin[1]);
+    if (positionParams.absoluteLayout == true) {
+      //out.width = Math.round(state.resizing.width);
+      //out.height = Math.round(state.resizing.height);
+      // out.width =  Math.round(w)
+      // out.height =  Math.round(h)
+      out.width = calcGridItemWHPx(w, colWidth, margin[0]);
+      out.height = calcGridItemWHPx(h, rowHeight, margin[1]);
+    }
+    else {
+      out.width = calcGridItemWHPx(w, colWidth, margin[0]);
+      out.height = calcGridItemWHPx(h, rowHeight, margin[1]);
+    }
   }
 
   // If dragging, use the exact width and height as returned from dragging callbacks.
   if (state && state.dragging) {
     out.top = Math.round(state.dragging.top);
     out.left = Math.round(state.dragging.left);
+    console.log('dragging', out.top, out.left)
   }
   // Otherwise, calculate from grid units.
   else {
+    console.log('not resizing or dragging')
+    console.log(state)
+   
     //mjg
     if (positionParams.absoluteLayout == true) {
+          //mjg
+
+        console.log(out.top)
+        if (out.top == undefined) {
+          out.top = Math.round((rowHeight + margin[1]) * y + containerPadding[1]);
+          out.left = Math.round((colWidth + margin[0]) * x + containerPadding[0]);      
+        } 
+        else {
+          if (state !== undefined) {
+            if (state.endDragging !== undefined) {
+              out.top = state.endDragging.top;
+              out.left = state.endDragging.left;
+            }
+          }
+        }
+          
+          
+
+        //console.log(positionParams)
+        //console.log('top','left',out.top,out.left)
+        //console.log('state',state)
+
+        // if (state != null) {
+        //   if (state.dragging != null) {
+        //     if (out != null) {
+        //       console.log('here')
+        //       out.top = Math.round(state.dragging.top);
+        //       out.left = Math.round(state.dragging.left);
+        //     }
+        //   }
+        // }
+
       //console.log('positionParams.absoluteLayout')
       //console.log(out.top,out.left)
       // if (out.top == undefined) {

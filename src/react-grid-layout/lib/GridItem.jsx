@@ -430,7 +430,7 @@ export default class GridItem extends React.Component<Props, State> {
     const pTop = parentRect.top / this.props.transformScale;
     newPosition.left = cLeft - pLeft + offsetParent.scrollLeft;
     newPosition.top = cTop - pTop + offsetParent.scrollTop;
-    this.setState({ dragging: newPosition });
+    this.setState({ dragging: newPosition, endDragging: newPosition });
 
     // Call callback with this data
     const { x, y } = calcXY(
@@ -486,7 +486,7 @@ export default class GridItem extends React.Component<Props, State> {
     }
 
     const newPosition: PartialPosition = { top, left };
-    this.setState({ dragging: newPosition });
+    this.setState({ dragging: newPosition, endDragging: newPosition });
 
     // Call callback with this data
     const { x, y } = calcXY(positionParams, top, left, w, h);
@@ -512,7 +512,7 @@ export default class GridItem extends React.Component<Props, State> {
     const { w, h, i } = this.props;
     const { left, top } = this.state.dragging;
     const newPosition: PartialPosition = { top, left };
-    this.setState({ dragging: null });
+    this.setState({ dragging: null , endDragging: this.state.dragging});
 
     const { x, y } = calcXY(this.getPositionParams(), top, left, w, h);
 
@@ -532,6 +532,7 @@ export default class GridItem extends React.Component<Props, State> {
     e: Event,
     callbackData: { node: HTMLElement, size: Position }
   ) => {
+    console.log('onResizeStop')
     this.onResizeHandler(e, callbackData, "onResizeStop");
   };
 

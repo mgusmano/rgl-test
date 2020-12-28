@@ -7,10 +7,10 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 export default class DynamicLayout extends React.Component {
 
-  constructor(props) {
-    super(props);
-    console.log('constructor',this.props)
-  }
+  // constructor(props) {
+  //   super(props);
+  //   console.log('constructor',this.props)
+  // }
 
   generateDOM = (currentbreakpoint,layouts) => {
     var thisbreakpoint = ''
@@ -25,6 +25,7 @@ export default class DynamicLayout extends React.Component {
         thisbreakpoint = currentbreakpoint
       }
     }
+    console.log(layouts[thisbreakpoint])
     return layouts[thisbreakpoint].map((l, i) => {
       return (
         <div key={i} layoutitem={l} data-grid={l} item={i} style={{display:'flex'}}>
@@ -49,19 +50,19 @@ export default class DynamicLayout extends React.Component {
         currentbreakpoint
       })
     }
-    // if (this.currentbreakpoint == undefined) {
-    //   this.currentbreakpoint = 'lg'
-    // }
+    if (this.currentbreakpoint == undefined) {
+      this.currentbreakpoint = 'lg'
+    }
 
     window['cols'] = cols
     window['breakpoints'] = breakpoints
     window['numcols'] = numcols
     window['currentbreakpoint'] = currentbreakpoint
 
-    console.log(window['cols'])
-    console.log(window['breakpoints'])
-    console.log(window['numcols'])
-    console.log(window['currentbreakpoint'])
+    // console.log(window['cols'])
+    // console.log(window['breakpoints'])
+    // console.log(window['numcols'])
+    // console.log(window['currentbreakpoint'])
   }
 
   onLayoutChange = (layout) => {
@@ -79,7 +80,7 @@ export default class DynamicLayout extends React.Component {
 
   render() {
     //window['processsvg'] = true
-    const {cols, breakpoints, layouts, level, mode, parent} = this.props.totallayout
+    const {cols, breakpoints, layouts, level, mode, parent, width} = this.props.totallayout
 
     var resizehandles = ['s','se','e']
     if (mode == 'view') {

@@ -5,7 +5,7 @@ const Ext = window['Ext']
 const ChildWindow = (props) => {
   const contentRef = useRef()
   const [extitem, SetExtItem] = useState(null)
-  const [pixels, SetPixels] = useState(0)
+  const [pixels, setPixels] = useState('0')
   
    
   useEffect(() => {
@@ -26,7 +26,8 @@ const ChildWindow = (props) => {
     theItem.render(contentRef.current)
     SetExtItem(theItem)
     if (props.mode == 'edit') {
-      SetPixels(2)
+      console.log('SetPixels')
+      setPixels('2px solid red')
     }
   }, []);
 
@@ -37,15 +38,17 @@ const ChildWindow = (props) => {
       extitem.updateLayout();
     }}>
       <div 
-        ref={contentRef}
         style={{
           fontSize:'11px',
           width:'100%',
           height:'100%',
-          border:{pixels}+'px solid green',
           overflow:'auto'
         }} 
       >
+        {/* <div className="theParent" ref={contentRef} style={{ width:'90%', height:'90%',border:'2px solid green'}}></div> */}
+       
+        <div className="theParent" ref={contentRef} style={{ boxSizing:'border-box',width:'100%', height:'100%',border:pixels}}></div>
+       
         {/* {props.item}-{props.layoutitem.widget.type}<br/>
         x:{x},y:{y}<br/> w:{w}, h:{h} */}
       </div> 
